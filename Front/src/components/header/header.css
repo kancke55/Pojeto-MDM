@@ -1,0 +1,107 @@
+:root{
+    --color-01-: #fff;
+    --color-02-: rgb(167, 171, 184);
+    --color-03-: yellow;
+    --color-04-: green;
+    --color-05-: yellowgreen;
+    --color-06-: black
+
+
+
+
+}
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+
+}
+#header {
+    height: 50px;
+    margin: 0;
+    background-color: #fff;
+    box-shadow: 1px 1px 4px var(--color-06-);
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    display: flex;
+     
+
+}
+
+#list {
+    margin-left: auto;
+    list-style: none;
+    display: flex;
+    font-size: 26px;
+    justify-content: center;
+}
+
+#list > a {
+    color: rgba(0, 0, 0, 0.801);
+    margin-top: auto;
+    
+}
+
+
+.list-item {
+    text-decoration: none;
+    padding: 7px;
+    border-radius: 10px;
+    margin: 0px 15px;
+}
+
+.list-item:hover {
+    color: rgba(0, 0, 0, 0.37);
+}
+
+#button-link {
+    margin-right: 5vw;
+    margin-left: 2vw;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+    width: 120px;
+    height: 38px;
+    border-radius: 5px;
+    font-size: 22px;
+    background-color: transparent;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.116);
+}
+.btn:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+#login-icon {
+    padding: 0px 3px;
+    margin: 0;
+    margin-top: 5px;
+    width: 15px;
+}
+
+#home-link {
+    margin-left: 7vw;
+
+    color: rgba(0, 0, 0, 0.801);
+}
+
+#header-home {
+    font-size: 29px;
+    padding-top: 10px;
+    width: fit-content;
+    margin: auto;
+    font-weight: lighter;
+
+}
+#header-home:hover {
+    color: rgba(14, 13, 13, 0.37);
+    font-weight: lighter;
+}
+
+
+

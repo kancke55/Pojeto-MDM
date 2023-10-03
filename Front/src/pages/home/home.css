@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 0px;
+}
+
+#intro {
+    height:fit-content ;
+}
+#img-intro {
+    width: 100vw;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.658);
+
+}
+#text-box {
+    background-color:rgba(0, 0, 0, 0.308);
+    border-radius: 20px;
+    color: white;
+    position: absolute;
+    top: 150px;
+    border: 10px;
+    text-shadow: 1px 1px 4px black;
+    text-align: center;
+    width: 40vw;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#info-text {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+
+
+}
+
+
+#info-mn {
+    width: 20vw;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+
+}
+#cadastro {
+    width: 20vw;
+    background-color: rgba(0, 0, 0, 0.404);
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 5px black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 25px;    
+    position:absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+#botao1 {
+    text-shadow: 1px 1px black;
+    color: white;
+    text-decoration: none;
+    width: 10vw;
+    height: 30px;
+    display: flex;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    position: absolute;
+    top: 61%;
+    right: 0;
+    left: 0;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid white;
+    box-shadow: 1px 1px 4px black;
+
+}
+
+#botao1 > a {
+    color: white    ;
+    display: flex;
+    margin: auto;
+    
+}
+#botao1:hover {
+    color: black;
+    background-color: white;   
+}
+
+#botao1:hover > a {
+    color: black;
+}
+
+#botao1 > a > p {
+    padding: 0px 5px;
+}

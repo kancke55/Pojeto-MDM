@@ -1,0 +1,13 @@
+#recover-email {
+    margin-top: 300px;
+}
+#form-recover {
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+#email-p {
+    padding: 5px;
+}

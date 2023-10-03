@@ -1,0 +1,84 @@
+#footer {
+    width: 100vw;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.411);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.418);
+    display: flex;
+    justify-content: center;
+}
+#img-footer {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 12vw;
+    margin-right: 30px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.459);
+    border-radius: 100%;
+}
+
+#lista-footer {
+    font-size: 12px;
+    width: 20vw;
+    height: 170px;
+    margin-top: auto;
+    margin-bottom: auto;    
+}
+
+#list-ft {
+    margin-top: 50px;
+    margin-left: 100px;
+    font-size: 16px;
+    list-style: none;
+}
+#endereco-lista {
+    margin-left: 100px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#social-media {
+    width: 12vw;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 170px;
+    margin-left: 100px
+}
+#social-media > a {
+    margin-left: 12px;
+    color:orange;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: lighter;
+ 
+}
+#social-media > a:hover {
+    color: rgba(255, 0, 0, 0.541);
+}
+
+#social-media > p {
+    margin-bottom: 50px;
+    font-size: 22px;
+    font-weight: bold;
+
+}
+#contato-footer {
+    width: 12vw;
+    height: 170px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 20px;
+
+
+}
+#contato-zap {
+    font-size: 20px;
+    color: yellowgreen;
+    font-weight: lighter;
+
+}
+#contato-tittle {
+    margin-left: 22px;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
