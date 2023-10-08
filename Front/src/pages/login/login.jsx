@@ -49,7 +49,8 @@ export default function Login() {
               </div>
               <div id='login-usuario'>
                 <input type="submit" value="login" class='submit'/>
-                <Link  to='/recover' >Esqueceua a senha?</Link>
+                <Link  to='/' >Esqueceua a senha?</Link>
+                <Link id='login-register'  to='/register' >Não Tenho Cadastro</Link>
               </div>
             </div>
           </form>

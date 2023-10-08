@@ -14,7 +14,7 @@ export default function Home() {
         <img id='img-intro' src="img/omorro.jpeg" height='400' alt="plano de fundo" />
        <div id='descricao-site'>
         <h1 className='tittle-event'>Quer Ajudar o Projeto ?</h1><br />
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui voluptates, sequi molestiae inventore dolor similique! Quas illum obcaecati similique alias facere distinctio maiores illo fugit asperiores consectetur, at magnam veritatis.</p>
+        <p>Se registre para ficar atualizado sobre tudo do projeto</p>
           <Link to='/register'>
             <button id='descricao-butao'>Clique Aqui</button>
           </Link>
