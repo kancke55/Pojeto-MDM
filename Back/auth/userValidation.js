@@ -9,9 +9,9 @@ const loginValidation = async (req, res, next) => {
     if(!emailValidation) {
         return res.status(400).json({ message: '"email" precisa ser um email válido' });
     }
-    if(password.length < 6) {
+    if(password.length < 6 || password.length > 20 ) {
         return res.status(400)
-        .json({ message: '"password" deve conter no mínimo 6 caracteres' });
+        .json({ message: '"password" deve conter no mínimo 6 caracteres e no máximo 20 caracteres' });
     }
     return next()
 }
@@ -19,9 +19,9 @@ const loginValidation = async (req, res, next) => {
 const nameValidation = async (req, res, next) => {
     const {name} = req.body;
 
-    if(name.length < 3) {
+    if(name.length < 3 || name.length > 30) {
         return res.status(400)
-        .json({ message: '"name" deve conter no mínimo 3 caracteres' });
+        .json({ message: '"name" deve conter no mínimo 3 caracteres no máximo 30 caracteres' });
     } else {
         return next()
     }

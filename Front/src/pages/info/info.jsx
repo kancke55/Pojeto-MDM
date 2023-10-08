@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../../components/header/header'
 import './info.css'
+import Footer from '../../components/footer/footer'
 
 export default function Info() {
   return (
@@ -22,6 +23,7 @@ export default function Info() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

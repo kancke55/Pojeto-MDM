@@ -17,7 +17,7 @@ export default function UserMenu({setActive}) {
   return (
     <div>
         <div id='menu-user'>
-            <p id='user-name'>{account.nome}</p>
+            <p id='user-name'>{account.nome.split(" ", 1)}</p>
             <div className='border' />
             <ul className='test'>
                 <Link to='/profile'><li className='test'>Meu Perfil</li></Link>

@@ -10,22 +10,11 @@ export default function Header() {
   const { account, setAccount } = useContext(Context);
   const [ active, setActive ] = useState(false);
   window.addEventListener('click', (e) => {
-    console.log(e.target.classList.value);
     if(e.target.classList.value !== 'test'){
       return setActive(false);
     }
   });
 
-  useEffect(() => {
-
-    const menuTest = () => {
-      setAccount({
-        nome: 'Test',
-        email:'lukinha@hotmail.com'
-      })
-    }
-    menuTest();
-  }, []);
 
   const isActive = () => {
       return setActive(true);

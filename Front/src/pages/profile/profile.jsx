@@ -1,11 +1,25 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './profile.css'
 import {IoIosContact} from 'react-icons/io'
 import Header from '../../components/header/header'
 import { Context } from '../../contextt/MyContext';
+import Footer from '../../components/footer/footer';
+import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
   const { account } = useContext(Context);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isLogged = () => {
+      if (!account.nome) {
+        return navigate('/');
+      } 
+      return null
+    }
+    isLogged();
+  }, [])
+
   return (
     <div>
         <Header/>
@@ -16,7 +30,7 @@ export default function Profile() {
                 <ul>
                     <p id='perfil-info'>Nome : {account.nome} </p>
                     
-                    <p id='perfil-info'>Email :{account.email}</p> 
+                    <p id='perfil-info'>Email : {account.email}</p> 
                     <div id='butoes-perfil'>
                       <button id='butao-editar'>editar</button>
                       <button id='butao-editar'>mudar senha</button>
@@ -31,6 +45,7 @@ export default function Profile() {
 
             </div>
         </div>
+        <Footer />
     </div>
   )
 }

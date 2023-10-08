@@ -1,6 +1,7 @@
 import React from 'react'
 import './donate.css'
 import Header from '../../components/header/header'
+import Footer from '../../components/footer/footer'
 
 export default function Donate() {
   return (
@@ -19,7 +20,7 @@ export default function Donate() {
           <p>Cnpj : xxxxxxxxxxxxxxxx</p>
           <p>Meninos Do morro</p>
         </div>
-
+        <Footer />
     </div>
   )
 }

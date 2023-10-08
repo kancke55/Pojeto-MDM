@@ -1,9 +1,7 @@
 #page-login {
     padding: 50px;
     width: 40vw;
-    margin-top: 200px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 200px auto;
     border: 1px  solid black;
 }
 #login-tittle {

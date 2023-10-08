@@ -4,6 +4,7 @@ import './register.css'
 import { createAccount } from '../../service/api';
 import { useNavigate } from 'react-router-dom';
 import { registerValidation } from '../../auth/formAuth';
+import Footer from '../../components/footer/footer';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -32,7 +33,7 @@ export default function Register() {
       <div id='page-register'>
         <Header/>
         <div id='register-page'>
-          <div>
+          <div id='register-box'>
             <h1 id>Cadastro</h1><br />
             <form onSubmit={ handleRegister } id='register-box'>
               Nome <input type="text" name ='name' value={ name } required onChange={(e) => setName(e.target.value)} placeholder='Digite Seu Nome' autoComplete='off' /> <br />
@@ -44,7 +45,7 @@ export default function Register() {
             </form>
           </div >
         </div>
-            
+        <Footer />
       </div>
   )
 }

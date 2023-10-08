@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../../contextt/MyContext'
 import { login } from '../../service/api';
 import { loginValidation } from '../../auth/formAuth'
+import Footer from '../../components/footer/footer'
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -53,6 +54,7 @@ export default function Login() {
             </div>
           </form>
         </div>
+        <Footer />
     </div>
    
   )
