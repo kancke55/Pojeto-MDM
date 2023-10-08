@@ -1,0 +1,50 @@
+#account-info {
+    width: 40vw;
+    margin-top: 150px;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    box-shadow: 1px 1px 4px  black;
+}
+#perfil-img {
+    font-size: 200px;
+}
+#perfil-info {
+    padding: 5px;
+    border-radius: 3px;
+    text-align: left;
+    border: 1px solid rgba(0, 0, 0, 0.432);
+    margin: 20px;
+}
+
+#butoes-perfil {
+    display: flex;
+    justify-content: space-around;
+}
+
+#butao-editar {
+    width: 150px;
+    height: 40px;
+    border: none;
+    color: white;
+    background-color: rgba(0, 128, 0, 0.842);
+    border-radius: 10px;
+}
+
+#butao-editar:hover {
+    background-color: black;
+}
+
+#butao-deletar {
+    width: 150px;
+    height: 40px;
+    border: none;
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+}
+
+#butao-deletar:hover {
+    background-color: black;
+}

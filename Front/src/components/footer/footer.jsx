@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <div id='footer'>
         <div id='img-logo'>
-            <img id='img-footer' src="meninosdomorro.jpeg" alt="logo" />
+            <img id='img-footer' src="/img/Meninosdomorro.jpeg" alt="logo" />
         </div>
         <div id='lista-footer'>
                 <p id='endereco-lista'>Endereço</p>
@@ -27,7 +27,7 @@ export default function Footer() {
         </div>
         <div id='contato-footer'>
             <p id='contato-tittle'> Contatos </p>
-            <p id='contato-zap'><IoLogoWhatsapp/>(35)998533864</p>
+            <p id='contato-zap'><IoLogoWhatsapp/>(xx)xxxxxxxxx </p>
         </div>
     </div>
   )

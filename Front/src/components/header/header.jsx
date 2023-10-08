@@ -1,24 +1,48 @@
-import React, { useContext } from 'react'
-import './header.css'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Info from '../../pages/info/info'
 import { Context } from '../../contextt/MyContext'
+import UserMenu from '../userMenu/userMenu'
+import Info from '../../pages/info/info'
+import { IoMdContact } from 'react-icons/io';
+import './header.css'
 
 export default function Header() {
-  const { account } = useContext(Context);
+  const { account, setAccount } = useContext(Context);
+  const [ active, setActive ] = useState(false);
+  window.addEventListener('click', (e) => {
+    console.log(e.target.classList.value);
+    if(e.target.classList.value !== 'test'){
+      return setActive(false);
+    }
+  });
+
+  useEffect(() => {
+
+    const menuTest = () => {
+      setAccount({
+        nome: 'Test',
+        email:'lukinha@hotmail.com'
+      })
+    }
+    menuTest();
+  }, []);
+
+  const isActive = () => {
+      return setActive(true);
+  }
   return (
     <div id='header'>
         <Link id='home-link' to='/'>
             <h3 id='header-home'>Home</h3>
         </Link>
-        <ul id='list'>
+        <ul id='list' className='test'>
           <Link to='/events'>
             <li className='list-item'>Eventos</li>
           </Link>
           <Link to='/info'>
             <li className='list-item'>Sobre</li>
           </Link>
-          { account.nome ?  <li className='list-item'><p style={{marginTop: '5px', color: 'red'}}>{ account.nome }</p></li> : 
+          { account.nome ? <h1 className='test' onClick={() => isActive()} style={active ? {marginLeft: '200px'} : null} id='icon'>{account.nome[0]}</h1> : 
           <Link id='button-link' to='/login'>
           <li className='list-item'>
           <button className='btn'>
@@ -29,7 +53,9 @@ export default function Header() {
               </svg>
           </button>
           </li>
-        </Link> }
+        </Link>
+        }
+        {active ? <UserMenu setActive={setActive} /> : null}
           
         </ul>
     </div>

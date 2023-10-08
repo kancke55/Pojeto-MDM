@@ -11,6 +11,8 @@ import Info from './pages/info/info';
 import Register from './pages/register/register';
 import Login from './pages/login/login';
 import Recover from './pages/recoverpassword/recover';
+import Profile from './pages/profile/profile';
+import Donate from './pages/donate/donate';
 
 function App() {
   
@@ -23,6 +25,8 @@ function App() {
       <Route exact path='/register' element = {<Register/>}/>
       <Route exact path='/login' element = {<Login/>}/>
       <Route exact path='/recover' element = {<Recover/>}/>
+      <Route exact path='/profile' element = {<Profile/>}/>
+      <Route exact path='/donate' element = {<Donate/>}/>
     </Routes>
   )
 }

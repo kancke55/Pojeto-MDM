@@ -20,6 +20,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.6.1",
     "nodemon": "^3.0.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "tough-cookie": "^4.1.3"
   }
 }

@@ -22,10 +22,11 @@
     margin: 0;
     background-color: #fff;
     box-shadow: 1px 1px 4px var(--color-06-);
-    width: 100vw;
-    position: absolute;
+    width: 100%;
+    position: fixed;
     top: 0;
     display: flex;
+    z-index: 5;
      
 
 }
@@ -39,21 +40,22 @@
 }
 
 #list > a {
-    color: rgba(0, 0, 0, 0.801);
+    color: rgba(0, 0, 0, 0.700);
+    margin: 0px 15px;
     margin-top: auto;
+    padding: 7px;
     
 }
 
 
 .list-item {
     text-decoration: none;
-    padding: 7px;
     border-radius: 10px;
-    margin: 0px 15px;
+    width: fit-content;
 }
 
 .list-item:hover {
-    color: rgba(0, 0, 0, 0.37);
+    color: rgb(12, 12, 12);
 }
 
 #button-link {
@@ -87,7 +89,7 @@
 #home-link {
     margin-left: 7vw;
 
-    color: rgba(0, 0, 0, 0.801);
+    color: rgba(0, 0, 0, 0.700);
 }
 
 #header-home {
@@ -99,9 +101,28 @@
 
 }
 #header-home:hover {
-    color: rgba(14, 13, 13, 0.37);
+    color: rgb(14, 13, 13);
     font-weight: lighter;
 }
 
+#icon {
+    margin: auto;
 
+    text-align: center;
+    font-size: 25px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 50px;
+    width: 30px;
+    padding: 4px;
+    background-color:  rgba(0, 128, 0, 0.76);
+    color: white;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.24);
+}
+
+#icon:hover {
+    background-color: black;
+    color: white;
+}
 
