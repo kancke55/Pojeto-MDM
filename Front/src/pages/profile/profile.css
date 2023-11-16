@@ -46,3 +46,10 @@
 #butao-deletar:hover {
     background-color: black;
 }
+
+@media screen and (max-width: 900px) {
+    #account-info {
+        width: 65vw;
+    }
+    
+}

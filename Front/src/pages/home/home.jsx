@@ -24,7 +24,7 @@ export default function Home() {
           <img id='imagem-projeto' src="img/omorro2.jpeg" alt="imagem" />
           <div className='event-text-box'>
           <h1 className='tittle-event'>O Projeto</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium non, temporibus tempora enim doloremque eaque quas sequi placeat maiores in deleniti blanditiis recusandae, perferendis incidunt. Atque dignissimos quod incidunt ipsam.</p>
+          <p>Um projeto social que promove treinos, eventos e ajuda para as crianças do bairro Rua nova e a cidade de Santa rita do sapucaí.</p>
           <Link to='/info'>
             <button id='butao-projeto'>Saiba Mais</button>
           </Link>
@@ -35,7 +35,7 @@ export default function Home() {
           <div id='eventos-contener'>
             <div className='event-text-box'>
               <h1 className='tittle-event'>Eventos</h1>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque quo minima at doloribus, nostrum inventore harum quidem magnam est deleniti earum suscipit, numquam ipsa impedit laudantium perspiciatis quos alias placeat.</p>
+              <p>Saiba de todos os eventos que estão rolando no projeto e nossa agenda de eventos e ações sociais.</p>
               <Link to='/events'>
                 <button id='butao-projeto'>Saiba Mais</button>
               </Link>

@@ -37,3 +37,23 @@ margin: 50px;
     text-align: right;
     margin-top: 50px;
 }
+
+#bola {
+    font-size: 22px;
+}
+
+@media screen and (max-width: 900px) {
+
+    #img-sobre {
+        width: 80vw;
+        height: 50vh;
+
+    }
+
+    #info {
+        width: 80vw;
+        height: 50vh;
+        margin-bottom: 5px;
+    }
+    
+}

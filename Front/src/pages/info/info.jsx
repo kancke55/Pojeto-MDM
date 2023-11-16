@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../../components/header/header'
 import './info.css'
 import Footer from '../../components/footer/footer'
+import {BiFootball} from 'react-icons/bi'
 
 export default function Info() {
   return (
@@ -18,7 +19,7 @@ export default function Info() {
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi eligendi mollitia, ipsum doloribus tenetur architecto vero quibusdam? Exercitationem placeat minus cupiditate laborum iure enim fuga, sapiente, omnis blanditiis quae dolorum.</p>  
             </div>
             <div id='bottom-text'>
-              <p>Meninos Do Morro 2019 </p>
+              <p><BiFootball id='bola'/> Meninos Do Morro 2019 </p>
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@
     height: 100vh;
 }
 
-#event-title {
+#event-tittle {
     margin: 100px;
     text-align: center;
     color: rgb(20, 20, 20);
@@ -22,7 +22,7 @@
     justify-content: space-around;
 }
 
-#event-1 {
+.event-1 {
     text-align: center;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.432);
     background-color: white;
@@ -30,15 +30,37 @@
 
     border-radius: 15px;
 }
-#img-evento {
+.img-evento {
     width: 400px;
     height: 400px;
     padding: 10px;
     margin: 0
 }
 
-#event-1:hover {
+.event-1:hover {
     cursor: pointer;
     opacity: 0.6;
     border: 1px solid black;
+}
+
+@media screen and (max-width: 900px) {
+    .event-1 {
+        width: 30vw;
+        height: 40vh;
+        margin: 20px 0;
+    }
+
+    .img-evento {
+        width: 20vw;
+        height: 20vh;
+    }
+
+    #event-tittle {
+        margin: 30px 0;
+    }
+
+    #context {
+        width: 80vw;
+    }
+
 }

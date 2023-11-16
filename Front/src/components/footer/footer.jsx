@@ -5,6 +5,7 @@ import {IoLogoWhatsapp} from 'react-icons/io';
 import {BsFillHouseDoorFill} from 'react-icons/bs';
 import {GiModernCity} from 'react-icons/gi';
 import {GiBrazil} from 'react-icons/gi';
+import {MdEmail} from 'react-icons/md'
 
 export default function Footer() {
   return (
@@ -13,7 +14,7 @@ export default function Footer() {
             <img id='img-footer' src="/img/Meninosdomorro.jpeg" alt="logo" />
         </div>
         <div id='lista-footer'>
-                <p id='endereco-lista'>Endereço</p>
+            <p id='endereco-lista'>Endereço</p>
             <ul id='list-ft'>
                 <li><BsFillHouseDoorFill/>Rua do Rosario(Rua Nova)</li>
                 <li><GiModernCity/>Santa Rita Do Sapucaí</li>
@@ -27,7 +28,8 @@ export default function Footer() {
         </div>
         <div id='contato-footer'>
             <p id='contato-tittle'> Contatos </p>
-            <p id='contato-zap'><IoLogoWhatsapp/>(xx)xxxxxxxxx </p>
+            <p id='contato-zap'><IoLogoWhatsapp/>(xx)xxxxxxxxx </p><br />
+            <p><MdEmail/>  Email : </p>
         </div>
     </div>
   )

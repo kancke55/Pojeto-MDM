@@ -5,6 +5,9 @@ import UserMenu from '../userMenu/userMenu'
 import Info from '../../pages/info/info'
 import { IoMdContact } from 'react-icons/io';
 import './header.css'
+import {GiHamburgerMenu} from 'react-icons/gi';
+import {FaUserCircle} from 'react-icons/fa';
+
 
 export default function Header() {
   const { account, setAccount } = useContext(Context);
@@ -19,17 +22,43 @@ export default function Header() {
   const isActive = () => {
       return setActive(true);
   }
+
+function openNav() {
+    document.getElementById("menu-list").style.width = '100%';
+    
+  }
+
+  function closeNav() {
+    document.getElementById("menu-list").style.width = '0%';
+    
+  }
+
+  function openLog() {
+    document.getElementById("login-menu").style.width = '40%';
+    
+  }
+
+  function closeLog() {
+    document.getElementById("login-menu").style.width = '0%';
+    
+  }
+
+
+
   return (
     <div id='header'>
-        <Link id='home-link' to='/'>
+      <div id='menu-normal'>
+        <button type="button" id='ham' onClick={openNav}><GiHamburgerMenu/></button>
+        
+        <Link id='home-link' className='resp' to='/'>
             <h3 id='header-home'>Home</h3>
         </Link>
         <ul id='list' className='test'>
           <Link to='/events'>
-            <li className='list-item'>Eventos</li>
+            <li className='list-item resp'>Eventos</li>
           </Link>
           <Link to='/info'>
-            <li className='list-item'>Sobre</li>
+            <li className='list-item resp'>Sobre</li>
           </Link>
           { account.nome ? <h1 className='test' onClick={() => isActive()} style={active ? {marginLeft: '200px'} : null} id='icon'>{account.nome[0]}</h1> : 
           <Link id='button-link' to='/login'>
@@ -47,6 +76,26 @@ export default function Header() {
         {active ? <UserMenu setActive={setActive} /> : null}
           
         </ul>
+
+      </div>
+      <div id='menu-list' >
+        <div id='menu-over'>
+          <Link  to='/'>
+          Home
+          </Link>
+          <Link to='/events'>
+            Eventos
+          </Link>
+          <Link to='/info'>
+            Sobre
+          </Link>
+        </div>
+        <div id='mask' onClick={closeNav}/>
+
+      </div>
+      <div id='button-header'> 
+          <button type="button" id='ham' onClick={openNav}><GiHamburgerMenu/></button>
+      </div>
     </div>
 
   )

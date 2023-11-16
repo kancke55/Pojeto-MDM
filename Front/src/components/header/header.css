@@ -18,16 +18,8 @@
 
 }
 #header {
-    height: 50px;
-    margin: 0;
-    background-color: #fff;
-    box-shadow: 1px 1px 4px var(--color-06-);
-    width: 100%;
-    position: fixed;
-    top: 0;
-    display: flex;
-    z-index: 5;
-     
+   width:100vw ;
+   height: 5vh;                     
 
 }
 
@@ -124,5 +116,171 @@
 #icon:hover {
     background-color: black;
     color: white;
+}
+
+#menu-responsivo {
+    width: 0vw;
+    height: 100vh;
+    background-color: black;
+    z-index: 9;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    transition: all 0.5s; 
+}
+
+#ham {
+    display: none;
+    font-size: 30px;
+    border: none;
+    padding: 5px;
+    width: 40px;
+    cursor: pointer;
+}
+
+#log-user {
+    font-size: 30px;
+    border: none;
+    padding: 5px;
+    width: 40px;
+}
+
+#menu-list {
+    display: none;
+    width: 0vw;
+    height: 100vh;
+    z-index: 9;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    transition: all 0.5s;        
+
+}
+
+#mask {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(7, 7, 7, 0.315)
+}
+
+
+
+#menu-over {
+    top: 25%;
+    width: 30vw;
+    height: 100vh;
+    text-align: center;
+    padding-top: 80px;
+    background-color: rgb(15, 15, 15);
+    z-index: 10;
+}
+
+#login-over {
+    top: 25%;
+    width: 30vw;
+    height: 100vh;
+    text-align: center;
+    padding-top: 40px;
+    z-index: 10;
+    margin: 0 0 0 50px;
+}
+
+#menu-over > a {
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-size: 25px;
+    transition: 0.5s;
+}
+
+#login-over > a {
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-size: 25px;
+    transition: 0.5s;
+}
+
+#fechar {
+    width: 40px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.623);
+    font-size: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+    
+}
+
+#menu-over > a:hover {
+    color: grey;
+}
+
+#login-over > a:hover {
+    color: grey;
+}
+
+#ham:hover {
+    color: white;
+    background-color: black;
+}
+
+#log-user:hover {
+    color: white;
+    background-color: black;
+}
+
+
+#fechar:hover {
+    background-color: gray;
+    color: black;
+}
+
+#menu-normal {
+    height: 50px;
+    margin: 0;
+    background-color: #fff;
+    box-shadow: 1px 1px 4px var(--color-06-);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    z-index: 5;
+}
+
+#button-header {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+@media screen and (max-width: 900px) {
+    #header {
+        height: 8vh;
+    }
+
+    #menu-list {
+        display: flex;
+    }
+
+    #ham {
+        display: block;
+
+    }
+
+    .btn {
+        width: 85px;
+        height: 35px;
+        font-size: 19px;
+        margin-top: 2px;
+    }
+
+    .resp {
+        display: none;
+    }
+    
 }
 
