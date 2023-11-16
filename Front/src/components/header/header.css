@@ -132,6 +132,7 @@
 
 #ham {
     display: none;
+    background-color: #fff;
     font-size: 30px;
     border: none;
     padding: 5px;
