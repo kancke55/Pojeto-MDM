@@ -9,10 +9,36 @@
     margin-bottom: 50px;
 }
 #login-usuario {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+
+}
+
+#login-user {
+    margin-top: 20px;
+}
+
+
+.btnLogin {
     margin-top: 20px;
 
 }
 
-#login-register {
-    margin-left: 400px;
+@media screen and (max-width: 900px) {
+    #page-login {
+        width: 70vw;
+    }
+
+    #login-register {
+        margin: 10px 50px 0  0;
+
+    }
+
+    #login-usuario {
+        display: flex;
+        flex-direction: column;
+        margin: 10px 0 0 0 ;
+    }
+    
 }

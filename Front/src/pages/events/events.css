@@ -26,13 +26,13 @@
     text-align: center;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.432);
     background-color: white;
-    margin-top: 100px;
+    margin-top: 20px;
 
     border-radius: 15px;
 }
 .img-evento {
-    width: 400px;
-    height: 400px;
+    width: 30vw;
+    height: 40vh;
     padding: 10px;
     margin: 0
 }

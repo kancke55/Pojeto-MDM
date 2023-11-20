@@ -38,7 +38,7 @@ export default function Login() {
               <div id='login-tittle'>
               <h1>Login</h1>
               </div>
-              <div id='login-usuario'>
+              <div id='login-user'>
                 <label htmlFor="email">Usuário</label>
                 <input name='email' value={ email } type="text" id='email' autoComplete='off' required onChange={(e) => setEmail(e.target.value)}/>
 
@@ -47,10 +47,21 @@ export default function Login() {
                 <label htmlFor="password">Senha</label>
                 <input name='password' value={ password } onChange={(e) => setPassword(e.target.value)} required type="password" id='password' autoComplete='off' />
               </div>
-              <div id='login-usuario'>
+              <div className='btnLogin'>
                 <input type="submit" value="login" class='submit'/>
-                <Link  to='/' >Esqueceua a senha?</Link>
-                <Link id='login-register'  to='/register' >Não Tenho Cadastro</Link>
+
+              </div>
+              <div id='login-usuario'>
+                <div>
+                  <Link  to='/' >Esqueceua a senha?</Link>
+
+                </div>
+                <div>
+                  <Link  to='/register' >
+                    Não tenho cadastro
+                  </Link>
+
+                </div>
               </div>
             </div>
           </form>
