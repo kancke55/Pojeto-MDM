@@ -1,34 +1,65 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Header from '../../components/header/header'
 import './events.css'
 import Footer from '../../components/footer/footer'
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 export default function Events() {
   const [data, setData] = useState([]);
+  const eventoLista = useRef(null);
+  const scrollAmount = 810; // 
+
+
+
   useEffect(() => {
     fetch ('http://localhost:5173/public/eve.json')
     .then(response => response.json())
-    .then(console.log)
-  }, [])
+    .then(setData);
+  }, []);
+
+    const handleLeftClick = (e) => {
+    e.preventDefault();
+    eventoLista.current.scrollLeft -= scrollAmount;
+  };
+
+  const handleRightClick = (e) => {
+    e.preventDefault();
+
+    eventoLista.current.scrollLeft += scrollAmount;
+  };
+
+  if(!data || !data.length) return null;
+
   return (
     <div>
       <Header/>
-      <div id='event-container'>
+      <div className='event-container'>
         <div>
-          <h1 id='event-tittle'>Eventos</h1>
+          <h1 className='event-tittle'>Eventos</h1>
         </div>
-        <div id='context'>
+        <div className='context'>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis possimus beatae quaerat voluptatem rem mollitia corrupti ab. Facilis iste at corporis rerum. Dolore, esse. Maxime nostrum quidem alias. Tenetur!</p>
         </div>
-        <div id='evento-lista'>
-          <div className='event-1'>
-            <img className='img-evento' src="img/evento.png" alt="evento" />
-            <div className='info'>
-              <span className='name'>Evento 1</span>
-              <span className='conteudo'>Saiba mais</span>
-            </div>
-
+        <div className='carousel'>
+          <div className='arrowB' onClick={handleLeftClick}><IoIosArrowBack /> </div>
+          <div className='evento-lista' ref={eventoLista}>
+            {data.map((item) => {
+              const { id, name, conteudo } = item;
+              const imgEvento = item['img-evento'];
+              return (
+                <div key={id} className='item'>
+                  <img className='img-evento' src={imgEvento} alt={name} />
+                  <div className='info'>
+                    <span className='name'>{name}</span>
+                    <span className='conteudo'>{conteudo}</span>
+                  </div>
+                </div>
+              );
+            })   
+            }
           </div>
+          <div className='arrowF' onClick={handleRightClick}><IoIosArrowForward /></div>
+  
         </div>
       </div>
       <Footer/>

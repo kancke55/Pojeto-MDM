@@ -1,65 +1,99 @@
-#event-container {
-    height: 100vh;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#event-tittle {
-    margin: 100px;
+body{
+    width: 100%;
+    min-height: 100vh;
+}
+.event-container {
+    height: 90vh;
+}
+
+.event-tittle {
+    margin: 50px;
     text-align: center;
     color: rgb(20, 20, 20);
     font-weight: bold;
 }
-#context {
-    margin-left: auto;
-    margin-right: auto;
+.context {
+    margin: 20px auto;
     width: 400px;
     text-align: center;
     
 }
 
-#evento-lista {
-    text-align: center;
+.carousel {
+    margin: auto;
     display: flex;
-    justify-content: space-around;
+    align-items: center;
 }
 
-.event-1 {
-    text-align: center;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.432);
-    background-color: white;
-    margin-top: 20px;
-
-    border-radius: 15px;
+.evento-lista {
+    
+    margin: auto;
+    width: 45vw;
+    max-height:fit-content;
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
-.event-1 .info {
+.info {
+    width: fit-content;
+    margin: auto;
+    height: 14px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+
+    
 }
-.event-1 .info .name {
+.info .name {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+
+}
+
+.item {
+    width:100%;
+    height: 600px;
+    margin: 0 50px;
+    display: flex;
+    flex-direction: column;    
+
+    
 }
 
 .img-evento {
-    width: 50vw;
-    height: 45vh;
-    padding: 10px;
-    margin: 0
+    width:fit-content;
+    height: 80%;
+    object-fit: cover;
+    border: 2px solid white;
+    overflow-x:hidden;
+
 }
 
-.event-1:hover {
+.item:hover {
     cursor: pointer;
     opacity: 0.6;
     border: 1px solid black;
 }
 
+.arrowF, .arrowB {
+    font-size: 50px;
+    color: black;
+    cursor: pointer;
+    padding: 0 10vw;
+}
+
+
+
 @media screen and (max-width: 900px) {
-    .event-1 {
-        width: 30vw;
+    .item {
+        width: 100vw;
         height: 40vh;
         margin: 20px 0;
     }
@@ -69,11 +103,11 @@
         height: 20vh;
     }
 
-    #event-tittle {
+    .event-tittle {
         margin: 30px 0;
     }
 
-    #context {
+    .context {
         width: 80vw;
     }
 
