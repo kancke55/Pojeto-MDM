@@ -30,9 +30,23 @@
 
     border-radius: 15px;
 }
+
+.event-1 .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.event-1 .info .name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
 .img-evento {
-    width: 30vw;
-    height: 40vh;
+    width: 50vw;
+    height: 45vh;
     padding: 10px;
     margin: 0
 }
