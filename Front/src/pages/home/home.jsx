@@ -52,6 +52,21 @@ export default function Home() {
             <img id='img-event' src="img/eventofut.jpg" alt="eventos" />
           </div>
        </div>
+       <div id='doacao'>
+          <div id='doacao-contener'>
+            <img id='img-doacao' src="img/doar.png" alt="doação" />
+            <div className='event-text-box'>
+              <h1 className='tittle-event'>Doações</h1>
+              <p>Sua contribuição faz a diferença! Ajude o projeto a continuar transformando vidas através do esporte e educação.</p>
+              <Link to='/donate'>
+                <button id='butao-projeto'>
+                  Fazer Doação
+                  <BsArrowRight style={{marginLeft: '8px'}} />
+                </button>
+              </Link>
+            </div>
+          </div>
+       </div>
        <Footer/>
       </div>
   )

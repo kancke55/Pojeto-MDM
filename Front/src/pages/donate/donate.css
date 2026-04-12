@@ -1,53 +1,238 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+}
+
 #donate-info {
-    border: 2px solid green;
-    border-radius: 20px;
-    padding: 50px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.527);
-    width: 700px;
-    margin:  200px auto 100px auto;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid transparent;
+    border-image: linear-gradient(135deg, #00ff00, #008000) 1;
+    border-radius: 25px;
+    padding: 60px 40px;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.5);
+    width: 100%;
+    max-width: 800px;
+    margin: 120px auto 80px auto;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#donate-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(0,255,0,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(0,255,0,0.1)"/><circle cx="60" cy="30" r="1" fill="rgba(0,255,0,0.1)"/><circle cx="30" cy="70" r="1" fill="rgba(0,255,0,0.1)"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
 }
 
 #img-donate {
     width: 15vw;
+    min-width: 120px;
+    max-width: 200px;
+    height: auto;
+    border-radius: 50%;
+    border: 8px solid transparent;
+    background: linear-gradient(135deg, #00ff00, #008000) border-box;
+    box-shadow:
+        0 0 20px rgba(0, 255, 0, 0.3),
+        0 0 40px rgba(0, 255, 0, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    animation: pulse 2s infinite;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#img-donate:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow:
+        0 0 30px rgba(0, 255, 0, 0.5),
+        0 0 60px rgba(0, 255, 0, 0.3),
+        0 0 90px rgba(0, 255, 0, 0.2),
+        inset 0 0 30px rgba(255, 255, 255, 0.2);
+    animation-play-state: paused;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow:
+            0 0 20px rgba(0, 255, 0, 0.3),
+            0 0 40px rgba(0, 255, 0, 0.2),
+            inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow:
+            0 0 25px rgba(0, 255, 0, 0.4),
+            0 0 50px rgba(0, 255, 0, 0.3),
+            inset 0 0 25px rgba(255, 255, 255, 0.15);
+    }
+    100% {
+        box-shadow:
+            0 0 20px rgba(0, 255, 0, 0.3),
+            0 0 40px rgba(0, 255, 0, 0.2),
+            inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+}
+
+#donate-info h1 {
+    color: #2d5a2d;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin: 30px 0 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #008000, #00ff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 2;
 }
 
 #text-donate {
-    width: 15 vw;
-    margin: 15px;
+    margin: 25px 0;
+    position: relative;
+    z-index: 2;
+}
 
+#text-donate p {
+    color: #333;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
 }
 
 #butao-donate {
-    width: 80px;
-    height: 40px;
-    border-radius: 5px;
+    background: linear-gradient(135deg, #00ff00, #008000);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 128, 0, 0.3);
+    position: relative;
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 #butao-donate:hover {
-    background-color: black;
-    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 128, 0, 0.4);
+    background: linear-gradient(135deg, #32cd32, #228b22);
+}
+
+#butao-donate:active {
+    transform: translateY(-1px);
 }
 
 #donate-pix {
-    width: 15vw;
-    padding: 10px;
-    border: 1px solid rgba(0, 128, 0, 0.76);
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.39);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid transparent;
+    border-image: linear-gradient(135deg, #00ff00, #008000) 1;
     border-radius: 20px;
+    padding: 30px 25px;
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.5);
+    width: 100%;
+    max-width: 500px;
     text-align: center;
-    margin: 80px auto;
+    margin: 60px auto 40px auto;
+    position: relative;
+}
+
+#donate-pix p {
+    color: #333;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 8px 0;
+    font-weight: 500;
+}
+
+#donate-pix p:first-child {
+    font-weight: 600;
+    color: #2d5a2d;
+    margin-bottom: 15px;
 }
 
 @media screen and (max-width: 900px) {
     #donate-info {
-        width: 70vw;
-        margin: 50px auto;
+        width: 90vw;
+        margin: 80px auto 40px auto;
+        padding: 40px 25px;
     }
 
     #donate-pix {
-        width: 50vw;
-        margin: 20px auto;
+        width: 85vw;
+        margin: 30px auto 20px auto;
+        padding: 25px 20px;
     }
-    
+
+    #img-donate {
+        width: 25vw;
+        min-width: 100px;
+        max-width: 150px;
+    }
+
+    #donate-info h1 {
+        font-size: 2.5rem;
+        margin: 20px 0 15px 0;
+    }
+
+    #text-donate p {
+        font-size: 1.1rem;
+    }
+
+    #butao-donate {
+        padding: 14px 35px;
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #donate-info {
+        width: 95vw;
+        margin: 60px auto 30px auto;
+        padding: 30px 20px;
+    }
+
+    #donate-pix {
+        width: 90vw;
+        padding: 20px 15px;
+    }
+
+    #img-donate {
+        width: 30vw;
+        min-width: 80px;
+        max-width: 120px;
+    }
+
+    #donate-info h1 {
+        font-size: 2rem;
+    }
+
+    #text-donate p {
+        font-size: 1rem;
+    }
+
+    #butao-donate {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
 }

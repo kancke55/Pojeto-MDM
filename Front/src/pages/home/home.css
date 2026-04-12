@@ -297,6 +297,104 @@ body {
     transform: scale(1.05);
 }
 
+#doacao {
+    color: white;
+    background: linear-gradient(135deg, rgba(0, 128, 0, 0.9) 0%, rgba(34, 139, 34, 0.9) 100%);
+    text-align: center;
+    width: 100%;
+    padding: 100px 0;
+    position: relative;
+}
+
+#doacao::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="0.8" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="20" r="0.8" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.4;
+}
+
+#doacao > a {
+    color: white;
+}
+
+#doacao-contener {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+#img-doacao {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 15px;
+    border: 8px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+#img-doacao:hover {
+    transform: scale(1.05);
+}
+
+#img-doacao {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 50%;
+    border: 8px solid transparent;
+    background: linear-gradient(135deg, #00ff00, #008000) border-box;
+    box-shadow:
+        0 0 20px rgba(0, 255, 0, 0.3),
+        0 0 40px rgba(0, 255, 0, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    animation: pulse 2s infinite;
+    position: relative;
+}
+
+#img-doacao:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow:
+        0 0 30px rgba(0, 255, 0, 0.5),
+        0 0 60px rgba(0, 255, 0, 0.3),
+        0 0 90px rgba(0, 255, 0, 0.2),
+        inset 0 0 30px rgba(255, 255, 255, 0.2);
+    animation-play-state: paused;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow:
+            0 0 20px rgba(0, 255, 0, 0.3),
+            0 0 40px rgba(0, 255, 0, 0.2),
+            inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow:
+            0 0 25px rgba(0, 255, 0, 0.4),
+            0 0 50px rgba(0, 255, 0, 0.3),
+            inset 0 0 25px rgba(255, 255, 255, 0.15);
+    }
+    100% {
+        box-shadow:
+            0 0 20px rgba(0, 255, 0, 0.3),
+            0 0 40px rgba(0, 255, 0, 0.2),
+            inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+}
+
 @media screen and (max-width: 900px) {
     #descricao-site {
         padding: 80px 16px;
@@ -338,6 +436,17 @@ body {
     #imagem-projeto,
     #img-event {
         max-width: 100%;
+    }
+
+    #doacao-contener {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    #img-doacao {
+        width: 100%;
+        max-width: 400px;
     }
 }
 

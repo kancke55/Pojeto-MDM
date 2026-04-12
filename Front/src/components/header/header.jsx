@@ -79,6 +79,9 @@ export default function Header() {
           <Link to='/events' onClick={closeNav}>
             Eventos
           </Link>
+          <Link to='/donate' onClick={closeNav}>
+            Doações
+          </Link>
           <Link to='/info' onClick={closeNav}>
             Sobre
           </Link>
