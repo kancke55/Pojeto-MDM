@@ -43,7 +43,7 @@ export default function Login() {
                 <input name='email' value={ email } type="text" id='email' autoComplete='off' required onChange={(e) => setEmail(e.target.value)}/>
 
               </div>
-              <div>
+              <div className='password'>
                 <label htmlFor="password">Senha</label>
                 <input name='password' value={ password } onChange={(e) => setPassword(e.target.value)} required type="password" id='password' autoComplete='off' />
               </div>
@@ -53,7 +53,7 @@ export default function Login() {
               </div>
               <div id='login-usuario'>
                 <div>
-                  <Link  to='/' >Esqueceua a senha?</Link>
+                  <Link  to='/recover' >Esqueceua a senha?</Link>
 
                 </div>
                 <div>

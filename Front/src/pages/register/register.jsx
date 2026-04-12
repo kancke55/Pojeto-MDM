@@ -34,14 +34,25 @@ export default function Register() {
         <Header/>
         <div id='register-page'>
           <div id='register-box'>
-            <h1 id>Cadastro</h1><br />
+            <h1>Cadastro</h1><br />
             <form onSubmit={ handleRegister } id='register-box'>
-              Nome <input type="text" name ='name' value={ name } required onChange={(e) => setName(e.target.value)} placeholder='Digite Seu Nome' autoComplete='off' /> <br />
-              Email <input type="text" name='email' value={ email } required onChange={(e) => setEmail(e.target.value)} placeholder='Digite um Email Válido' autoComplete='off'/><br />
-              Senha <input type="password" name='password' value={ password } required onChange={(e) => setPassword(e.target.value)} placeholder='Digite Sua Senha' autoComplete='off'/><br />
-              Confirmar senha <input type="password" name='password' value={ confirm } required onChange={(e) => setConfirm(e.target.value)} placeholder='Digite Sua Senha' autoComplete='off'/><br />
-              <br />
-             <input type="submit" name='registrar' value="Enviar" />
+              <div>
+                <label htmlFor="name">Nome</label>
+                <input type="text" id="name" name='name' value={ name } required onChange={(e) => setName(e.target.value)} placeholder='Digite Seu Nome' autoComplete='off' />
+              </div>
+              <div>
+                <label htmlFor="email">Email</label>
+                <input type="email" id="email" name='email' value={ email } required onChange={(e) => setEmail(e.target.value)} placeholder='Digite um Email Válido' autoComplete='off'/>
+              </div>
+              <div>
+                <label htmlFor="password">Senha</label>
+                <input type="password" id="password" name='password' value={ password } required onChange={(e) => setPassword(e.target.value)} placeholder='Digite Sua Senha' autoComplete='off'/>
+              </div>
+              <div>
+                <label htmlFor="confirm">Confirmar senha</label>
+                <input type="password" id="confirm" name='confirm' value={ confirm } required onChange={(e) => setConfirm(e.target.value)} placeholder='Confirme Sua Senha' autoComplete='off'/>
+              </div>
+              <input type="submit" name='registrar' value="Enviar" />
             </form>
           </div >
         </div>

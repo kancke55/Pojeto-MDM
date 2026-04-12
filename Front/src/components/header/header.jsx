@@ -12,38 +12,30 @@ import {FaUserCircle} from 'react-icons/fa';
 export default function Header() {
   const { account, setAccount } = useContext(Context);
   const [ active, setActive ] = useState(false);
-  window.addEventListener('click', (e) => {
-    if(e.target.classList.value !== 'test'){
-      return setActive(false);
-    }
-  });
+  const [ menuOpen, setMenuOpen ] = useState(false);
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (e.target.classList.value !== 'test') {
+        setActive(false);
+      }
+    };
 
-  const isActive = () => {
-      return setActive(true);
-  }
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
+  }, []);
 
-function openNav() {
-    document.getElementById("menu-list").style.width = '100%';
-    
-  }
+  const isActive = () => setActive(true);
+  const openNav = () => setMenuOpen(true);
+  const closeNav = () => setMenuOpen(false);
 
-  function closeNav() {
-    document.getElementById("menu-list").style.width = '0%';
-    
-  }
-
-  function openLog() {
+  const openLog = () => {
     document.getElementById("login-menu").style.width = '40%';
-    
-  }
+  };
 
-  function closeLog() {
+  const closeLog = () => {
     document.getElementById("login-menu").style.width = '0%';
-    
-  }
-
-
+  };
 
   return (
     <div id='header'>
@@ -78,23 +70,21 @@ function openNav() {
         </ul>
 
       </div>
-      <div id='menu-list' >
+      <div id='menu-list' className={menuOpen ? 'open' : ''}>
         <div id='menu-over'>
-          <Link  to='/'>
-          Home
+          <button type='button' id='close-ham' onClick={closeNav} aria-label='Fechar menu'>×</button>
+          <Link to='/' onClick={closeNav}>
+            Home
           </Link>
-          <Link to='/events'>
+          <Link to='/events' onClick={closeNav}>
             Eventos
           </Link>
-          <Link to='/info'>
+          <Link to='/info' onClick={closeNav}>
             Sobre
           </Link>
         </div>
         <div id='mask' onClick={closeNav}/>
 
-      </div>
-      <div id='button-header'> 
-          <button type="button" id='ham' onClick={openNav}><GiHamburgerMenu/></button>
       </div>
     </div>
 

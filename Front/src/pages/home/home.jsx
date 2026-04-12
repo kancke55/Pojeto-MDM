@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../../components/header/header'
 import './home.css'
-import { BsFillPersonPlusFill } from "react-icons/bs";
+import { BsFillPersonPlusFill, BsArrowRight } from "react-icons/bs";
 import {FiInstagram} from "react-icons/fi"
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
@@ -16,7 +16,10 @@ export default function Home() {
         <h1 className='tittle-event'>Quer Ajudar o Projeto ?</h1><br />
         <p>Se registre para ficar atualizado sobre tudo do projeto</p>
           <Link to='/register'>
-            <button id='descricao-butao'>Clique Aqui</button>
+            <button id='descricao-butao'>
+              <BsFillPersonPlusFill style={{marginRight: '8px'}} />
+              Clique Aqui
+            </button>
           </Link>
        </div>
        <div id='painel-home'>
@@ -26,7 +29,10 @@ export default function Home() {
           <h1 className='tittle-event'>O Projeto</h1>
           <p>Um projeto social que promove treinos, eventos e ajuda para as crianças do bairro Rua nova e a cidade de Santa rita do sapucaí.</p>
           <Link to='/info'>
-            <button id='butao-projeto'>Saiba Mais</button>
+            <button id='butao-projeto'>
+              Saiba Mais
+              <BsArrowRight style={{marginLeft: '8px'}} />
+            </button>
           </Link>
           </div>
         </div>
@@ -37,7 +43,10 @@ export default function Home() {
               <h1 className='tittle-event'>Eventos</h1>
               <p>Saiba de todos os eventos que estão rolando no projeto e nossa agenda de eventos e ações sociais.</p>
               <Link to='/events'>
-                <button id='butao-projeto'>Saiba Mais</button>
+                <button id='butao-projeto'>
+                  Saiba Mais
+                  <BsArrowRight style={{marginLeft: '8px'}} />
+                </button>
               </Link>
             </div>
             <img id='img-event' src="img/eventofut.jpg" alt="eventos" />

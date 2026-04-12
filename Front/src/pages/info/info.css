@@ -1,59 +1,294 @@
 
-#info-box {
-    width: 80vw;
-    margin: auto;
-    margin-top: 200px;
-    top: 40%;
-    text-align: center;
+#sobre {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     position: relative;
-    bottom: 100px;
-
+    overflow-x: hidden;
 }
+
+#sobre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="rgba(39,174,96,0.1)"/><circle cx="90" cy="90" r="1" fill="rgba(39,174,96,0.1)"/><circle cx="40" cy="60" r="0.8" fill="rgba(39,174,96,0.1)"/><circle cx="70" cy="20" r="0.8" fill="rgba(39,174,96,0.1)"/></svg>');
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+#sobre-contener {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
+}
+
+#info-box {
+    width: min(1200px, 95vw);
+    margin: 160px auto 80px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 60px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 #titulo-info {
-margin: 50px;
+    margin: 0 0 50px 0;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+#titulo-info::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    border-radius: 2px;
 }
 
 #logo-sobre {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    margin-top: 40px;
 }
-#img-sobre{
+
+#img-sobre {
     border-radius: 50%;
-    height: 500px;
+    width: min(450px, 100%);
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 8px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+#img-sobre:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+}
+
+#img-sobre::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    z-index: -1;
+    opacity: 0.3;
 }
 
 #info {
-    margin-left: auto;
-    margin-right: auto;
-    width: 40vw;
-
+    width: min(600px, 100%);
+    margin: 0;
+    text-align: left;
+    line-height: 1.9;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 400;
 }
 
-#sobre-fundo {
+#info p {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+    border-radius: 15px;
+    border-left: 4px solid #27ae60;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#info p::before {
+    content: '';
     position: absolute;
-    width: 100vw;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(39, 174, 96, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+#info p:hover::before {
+    left: 100%;
+}
+
+#info p:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.15);
 }
 
 #bottom-text {
-    text-align: right;
-    margin-top: 50px;
+    text-align: center;
+    margin-top: 60px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #27ae60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(39, 174, 96, 0.2);
 }
 
 #bola {
-    font-size: 22px;
+    font-size: 28px;
+    color: #27ae60;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-5px);
+    }
+    60% {
+        transform: translateY(-3px);
+    }
 }
 
 @media screen and (max-width: 900px) {
+    #info-box {
+        margin: 120px auto 40px;
+        padding: 40px 30px;
+    }
+
+    #titulo-info {
+        margin: 0 0 40px 0;
+        font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    #titulo-info::after {
+        width: 60px;
+        height: 3px;
+    }
+
+    #logo-sobre {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
 
     #img-sobre {
-        width: 80vw;
-        height: 50vh;
-
+        width: 70vw;
+        max-width: 380px;
+        height: auto;
     }
 
     #info {
-        width: 80vw;
-        height: 50vh;
-        margin-bottom: 5px;
+        width: 90vw;
+        font-size: 1rem;
     }
-    
+
+    #info p {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    #bottom-text {
+        margin-top: 40px;
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    #bola {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #sobre {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    #info-box {
+        margin: 100px auto 30px;
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+
+    #titulo-info {
+        margin: 0 0 30px 0;
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        letter-spacing: 1px;
+    }
+
+    #titulo-info::after {
+        width: 50px;
+        height: 3px;
+    }
+
+    #logo-sobre {
+        gap: 30px;
+    }
+
+    #img-sobre {
+        width: 80vw;
+        max-width: 300px;
+    }
+
+    #info {
+        width: 100%;
+        font-size: 0.95rem;
+    }
+
+    #info p {
+        padding: 12px;
+        margin-bottom: 15px;
+        border-left-width: 3px;
+    }
+
+    #bottom-text {
+        margin-top: 30px;
+        font-size: 0.9rem;
+        padding: 12px;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #bola {
+        font-size: 20px;
+    }
 }
