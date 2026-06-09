@@ -4,8 +4,17 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
+async function parseResponse(response) {
+  const text = await response.text();
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+}
+
 export async function login(email, password) {
-  console.log(email, password);
   try {
     const response = await fetch(`${URL}/login`, {
       method: 'POST',
@@ -16,17 +25,17 @@ export async function login(email, password) {
     if (response.ok) {
       return response.json();
     }
-    const errorMessage = await response.json();
-    throw new Error(errorMessage.message);
+
+    const errorData = await parseResponse(response);
+    throw new Error(errorData?.message || errorData || 'Erro ao fazer login.');
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
-
 export async function getAccount(token) {
   try {
-    const response = await fetch(`${URL}/accounts/`, {
+    const response = await fetch(`${URL}/user`, {
       headers: {
         Authorization: `${token}`,
       },
@@ -35,6 +44,9 @@ export async function getAccount(token) {
     if (response.ok) {
       return response.json();
     }
+
+    const errorData = await parseResponse(response);
+    throw new Error(errorData?.message || errorData || 'Erro ao buscar dados do usuário.');
   } catch (error) {
     throw new Error(error.message);
   }
@@ -44,13 +56,16 @@ export async function createAccount(name, email, password) {
   try {
     const response = await fetch(`${URL}/user`, {
       method: 'POST',
-      body: JSON.stringify({name, email, password}),
+      body: JSON.stringify({ name, email, password }),
       headers,
     });
 
     if (response.ok) {
       return response.json();
     }
+
+    const errorData = await parseResponse(response);
+    throw new Error(errorData?.message || errorData || 'Erro ao criar conta.');
   } catch (error) {
     throw new Error(error.message);
   }
@@ -58,7 +73,7 @@ export async function createAccount(name, email, password) {
 
 export async function editAccount(editedAccount, token) {
   try {
-    const response = await fetch(`${URL}/accounts/`, {
+    const response = await fetch(`${URL}/user`, {
       method: 'PUT',
       body: JSON.stringify(editedAccount),
       headers: {
@@ -70,28 +85,17 @@ export async function editAccount(editedAccount, token) {
     if (response.ok) {
       return response.json();
     }
-  } catch (error) { error } {
-    try {
-      const response = await fetch(`${URL}/transactions`, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
-  
-      if (response.ok) {
-        return response.json();
-      }
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  }
+
+    const errorData = await parseResponse(response);
+    throw new Error(errorData?.message || errorData || 'Erro ao atualizar conta.');
+  } catch (error) {
     throw new Error(error.message);
   }
-
+}
 
 export async function deleteAccount(id, token) {
   try {
-    const response = await fetch(`${URL}/accounts/`, {
+    const response = await fetch(`${URL}/user`, {
       method: 'DELETE',
       headers: {
         ...headers,
@@ -102,6 +106,9 @@ export async function deleteAccount(id, token) {
     if (response.ok) {
       return response.json();
     }
+
+    const errorData = await parseResponse(response);
+    throw new Error(errorData?.message || errorData || 'Erro ao deletar conta.');
   } catch (error) {
     throw new Error(error.message);
   }

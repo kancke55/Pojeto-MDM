@@ -1,19 +1,21 @@
 const loginValidation = async (req, res, next) => {
-    const {email, password} = req.body;
-    if(!email || !password) {
-        return res.status(400).json({ message: 'email ou senha inválidos' });
+    const { email, password } = req.body;
+    if (!email || !password) {
+        console.log('Falha de login: email ou senha ausentes');
+        return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
     }
 
     const emailValidation = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
 
-    if(!emailValidation) {
-        return res.status(400).json({ message: '"email" precisa ser um email válido' });
+    if (!emailValidation) {
+        console.log(`Falha de login: email inválido -> ${email}`);
+        return res.status(400).json({ message: 'Email inválido.' });
     }
-    if(password.length < 6 || password.length > 20 ) {
-        return res.status(400)
-        .json({ message: '"password" deve conter no mínimo 6 caracteres e no máximo 20 caracteres' });
+    if (password.length < 6 || password.length > 20) {
+        console.log(`Falha de login: senha com tamanho inválido para email=${email}`);
+        return res.status(400).json({ message: 'Senha deve ter entre 6 e 20 caracteres.' });
     }
-    return next()
+    return next();
 }
 
 const nameValidation = async (req, res, next) => {

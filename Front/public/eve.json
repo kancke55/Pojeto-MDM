@@ -1,45 +1,17 @@
 [
   {
     "id": "1",
-    "name": "Evento 1" ,
+    "name": "Natal Solidário",
     "conteudo": "Saiba mais",
-    "img-evento": "http://localhost:5173/public/img/evento.png"
+    "img-evento": "http://localhost:5173/public/img/evento.png",
+    "link": "/Blog"
   },
     {
     "id": "2",
     "name": "Evento 2",
     "conteudo": "Saiba mais",
     "img-evento": "http://localhost:5173/public/img/evento.png"
-  },
-   {
-    "id": "1",
-    "name": "Evento 3" ,
-    "conteudo": "Saiba mais",
-    "img-evento": "http://localhost:5173/public/img/evento.png"
-  },
-    {
-    "id": "2",
-    "name": "Evento 4",
-    "conteudo": "Saiba mais",
-    "img-evento": "http://localhost:5173/public/img/evento.png"
-  },
-   {
-    "id": "1",
-    "name": "Evento 5" ,
-    "conteudo": "Saiba mais",
-    "img-evento": "http://localhost:5173/public/img/evento.png"
-  },
-    {
-    "id": "2",
-    "name": "Evento 6",
-    "conteudo": "Saiba mais",
-    "img-evento": "http://localhost:5173/public/img/evento.png"
-  },
-      {
-    "id": "3",
-    "name": "Evento 7",
-    "conteudo": "Saiba mais",
-    "img-evento": "http://localhost:5173/public/img/evento.png"
   }
+
 
 ] 

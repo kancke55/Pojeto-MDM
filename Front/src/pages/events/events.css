@@ -112,6 +112,8 @@ body{
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
+    text-decoration: none;
+    color: inherit;
 }
 
 #event-dots {
@@ -183,6 +185,19 @@ body{
     cursor: pointer;
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 25px 60px rgba(39, 174, 96, 0.2);
+}
+
+/* Ensure anchor semantics used for .item don't show default link styles */
+.item:link,
+.item:visited,
+.item:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.item:focus {
+    outline: 2px solid rgba(39,174,96,0.22);
+    outline-offset: 4px;
 }
 
 .img-evento {

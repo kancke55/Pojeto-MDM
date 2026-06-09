@@ -32,16 +32,23 @@ export default function Events() {
           <div className='evento-lista'>
             <div className='event-track' style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
               {data.map((item) => {
-                const { id, name, conteudo } = item;
+                const { id, name, conteudo, link } = item;
                 const imgEvento = item['img-evento'];
                 return (
-                  <div key={id} className='item'>
+                  <a
+                    key={id}
+                    className='item'
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Abrir informações do evento ${name}`}
+                  >
                     <img className='img-evento' src={imgEvento} alt={name} />
                     <div className='info'>
                       <span className='name'>{name}</span>
                       <span className='conteudo'>{conteudo}</span>
                     </div>
-                  </div>
+                  </a>
                 );
               })}
             </div>

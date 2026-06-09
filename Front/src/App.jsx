@@ -12,20 +12,25 @@ import Register from './pages/register/register';
 import Login from './pages/login/login';
 import Recover from './pages/recoverpassword/recover';
 import Profile from './pages/profile/profile';
+import EditProfile from './pages/profile/editProfile';
+import ChangePassword from './pages/profile/changePassword';
 import Donate from './pages/donate/donate';
+import Blog from './pages/blog/blog';
+
 
 function App() {
-  
-  
   return (
     <Routes>
       <Route exact path='/' element = {<Home/>}/>
       <Route exact path='/events' element = {<Events/>}/>
+      <Route exact path='/blog' element = {<Blog/>}/>
       <Route exact path='/info' element = {<Info/>}/>
       <Route exact path='/register' element = {<Register/>}/>
       <Route exact path='/login' element = {<Login/>}/>
       <Route exact path='/recover' element = {<Recover/>}/>
       <Route exact path='/profile' element = {<Profile/>}/>
+      <Route exact path='/profile/edit' element = {<EditProfile/>}/>
+      <Route exact path='/profile/password' element = {<ChangePassword/>}/>
       <Route exact path='/donate' element = {<Donate/>}/>
     </Routes>
   )
