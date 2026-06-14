@@ -21,11 +21,11 @@ export default function Register() {
         return window.alert('Senha e confirmar senha são valores diferentes')
       } if(registerValidation(name, email, password)) {
         await createAccount(name, email, password);
-        navigate('/login');
+        navigate('/resend-confirmation', { state: { email } });
       } else { return null }
 
     } catch (error) {
-      showMessage(error.message);
+      window.alert(error.message);
     }
   }
 

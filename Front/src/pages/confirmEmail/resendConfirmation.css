@@ -1,0 +1,163 @@
+#page-resend-confirmation {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#resend-confirmation-page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#resend-confirmation-box {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+}
+
+#resend-confirmation-box h1 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 28px;
+  text-align: center;
+}
+
+#resend-confirmation-box .info-message {
+  background: #eef2ff;
+  border-left: 4px solid #6366f1;
+  color: #1e293b;
+  padding: 16px 18px;
+  margin: 0 auto 20px;
+  max-width: 100%;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: left;
+}
+
+#resend-confirmation-box p {
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#resend-confirmation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#resend-confirmation-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#resend-confirmation-form label {
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+#resend-confirmation-form input[type='email'] {
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+#resend-confirmation-form input[type='email']:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+#resend-confirmation-form input[type='email']:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+#resend-confirmation-form input[type='submit'] {
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+#resend-confirmation-form input[type='submit']:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+#resend-confirmation-form input[type='submit']:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.message {
+  padding: 12px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+#resend-confirmation-links {
+  margin-top: 30px;
+  text-align: center;
+}
+
+#resend-confirmation-links p {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+#resend-confirmation-links a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+#resend-confirmation-links a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  #resend-confirmation-box {
+    padding: 30px 20px;
+  }
+
+  #resend-confirmation-box h1 {
+    font-size: 24px;
+  }
+
+  #resend-confirmation-page {
+    padding: 20px 10px;
+  }
+}

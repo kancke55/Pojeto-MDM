@@ -1,10 +1,52 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import Header from '../../components/header/header'
 import './blog.css'
 import Footer from '../../components/footer/footer'
 import { BiFootball } from 'react-icons/bi'
+import { Context } from '../../contextt/MyContext'
+import { getComments, postComment } from '../../service/api'
 
 export default function Blog() {
+  const { token } = useContext(Context);
+  const { id } = useParams();
+  const eventoId = id || '1';
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+
+  useEffect(() => {
+    const loadComments = async () => {
+      try {
+        const commentList = await getComments(eventoId);
+        setComments(commentList);
+      } catch (error) {
+        console.error('Erro ao carregar comentários:', error.message || error);
+      }
+    };
+
+    loadComments();
+  }, [eventoId]);
+
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+
+    if (!token) {
+      return window.alert('Faça login para enviar um comentário.');
+    }
+    if (!newComment.trim()) {
+      return window.alert('Digite um comentário antes de enviar.');
+    }
+
+    try {
+      await postComment(eventoId, newComment.trim(), token);
+      setNewComment('');
+      const commentList = await getComments(eventoId);
+      setComments(commentList);
+    } catch (error) {
+      window.alert(error.message || 'Erro ao enviar comentário.');
+    }
+  };
+
   return (
     <div className='event-page'>
       <Header />
@@ -52,6 +94,35 @@ export default function Blog() {
               <img src='/img/eventofut.jpg' alt='Jogo de futebol no evento' />
               <img src='/img/omorro.jpeg' alt='Meninos em campo no evento' />
             </div>
+          </section>
+
+          <section className='comment-section'>
+            <h3>Comentários do evento</h3>
+            {comments.length === 0 ? (
+              <p className='comment-empty'>Seja o primeiro a comentar neste evento.</p>
+            ) : (
+              <div className='comment-list'>
+                {comments.map((comment) => (
+                  <div key={comment.id} className='comment-card'>
+                    <div className='comment-header'>
+                      <span className='comment-author'>{comment.nome}</span>
+                      <span className='comment-date'>{new Date(comment.created_at).toLocaleString('pt-BR')}</span>
+                    </div>
+                    <p className='comment-text'>{comment.texto}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <form className='comment-form' onSubmit={handleSubmitComment}>
+              <textarea
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder={token ? 'Escreva seu comentário...' : 'Faça login para comentar.'}
+                disabled={!token}
+              />
+              <button type='submit'>Enviar comentário</button>
+            </form>
           </section>
         </article>
 

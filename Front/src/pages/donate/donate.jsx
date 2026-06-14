@@ -1,14 +1,33 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './donate.css'
 import Header from '../../components/header/header'
 import Footer from '../../components/footer/footer'
+import { createDonation } from '../../service/api'
+import { Context } from '../../contextt/MyContext'
 
 export default function Donate() {
+  const { account } = useContext(Context)
   const [selectedAmount, setSelectedAmount] = useState(50);
   const amounts = [30, 50, 100, 150];
 
   const handleDonate = () => {
-    window.alert(`Obrigado pela intenção de doar R$ ${selectedAmount}! Use o PIX abaixo ou entre em contato para finalizar.`);
+    const email = account?.email || window.prompt('Digite seu email para receber recibo e confirmar a doação:');
+    if (!email) return window.alert('Email obrigatório para processar o pagamento.');
+
+    // amount in cents
+    const amountInCents = selectedAmount * 100;
+    createDonation(amountInCents, email)
+      .then((res) => {
+        if (res.url) {
+          // redirect to Stripe Checkout
+          window.location.href = res.url;
+        } else {
+          window.alert('Erro ao iniciar pagamento.');
+        }
+      })
+      .catch((err) => {
+        window.alert(err.message || 'Erro ao processar doação.');
+      });
   }
 
   return (
@@ -68,9 +87,8 @@ export default function Donate() {
           </div>
 
           <div className="pix-details">
-            <p><strong>Chave PIX:</strong> 00000000-0000-0000-0000-000000000000</p>
-            <p><strong>CNPJ:</strong> 12.345.678/0001-90</p>
-            <p><strong>Nome:</strong> Meninos do Morro</p>
+            <p><strong>Chave PIX:</strong> 082.86687604</p>
+            <p><strong>Nome:</strong> Liliane da Silva</p>
           </div>
         </section>
       </main>

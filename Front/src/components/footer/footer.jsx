@@ -28,8 +28,8 @@ export default function Footer() {
         </div>
         <div id='contato-footer'>
             <p id='contato-tittle'> Contatos </p>
-            <p id='contato-zap'><IoLogoWhatsapp/>(xx)xxxxxxxxx </p><br />
-            <p><MdEmail/>  Email : </p>
+            <p id='contato-zap'><IoLogoWhatsapp/>(35)998912635 </p><br />
+            <p><MdEmail/>  projeto.rn.mdm@gmail.com </p>
         </div>
     </div>
   )

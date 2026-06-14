@@ -16,6 +16,7 @@ import EditProfile from './pages/profile/editProfile';
 import ChangePassword from './pages/profile/changePassword';
 import Donate from './pages/donate/donate';
 import Blog from './pages/blog/blog';
+import ResendConfirmation from './pages/confirmEmail/resendConfirmation';
 
 
 function App() {
@@ -24,10 +25,12 @@ function App() {
       <Route exact path='/' element = {<Home/>}/>
       <Route exact path='/events' element = {<Events/>}/>
       <Route exact path='/blog' element = {<Blog/>}/>
+      <Route exact path='/blog/:id' element = {<Blog/>}/>
       <Route exact path='/info' element = {<Info/>}/>
       <Route exact path='/register' element = {<Register/>}/>
       <Route exact path='/login' element = {<Login/>}/>
       <Route exact path='/recover' element = {<Recover/>}/>
+      <Route exact path='/resend-confirmation' element = {<ResendConfirmation/>}/>
       <Route exact path='/profile' element = {<Profile/>}/>
       <Route exact path='/profile/edit' element = {<EditProfile/>}/>
       <Route exact path='/profile/password' element = {<ChangePassword/>}/>

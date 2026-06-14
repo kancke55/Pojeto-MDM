@@ -4,13 +4,14 @@
     "name": "Natal Solidário",
     "conteudo": "Saiba mais",
     "img-evento": "http://localhost:5173/public/img/evento.png",
-    "link": "/Blog"
+    "link": "/blog/1"
   },
     {
     "id": "2",
     "name": "Evento 2",
     "conteudo": "Saiba mais",
-    "img-evento": "http://localhost:5173/public/img/evento.png"
+    "img-evento": "http://localhost:5173/public/img/evento.png",
+    "link": "/blog/2"
   }
 
 

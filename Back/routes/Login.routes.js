@@ -29,8 +29,13 @@ router.post('/', (req, res) => {
         return res.status(401).json({ message: 'Senha incorreta.' });
       }
 
+      if (loggedUser.email_confirmed !== 1) {
+        console.log(`Falha de login: email não confirmado para email=${user.email}`);
+        return res.status(401).json({ message: 'E-mail não confirmado. Verifique sua caixa de entrada.' });
+      }
+
       delete loggedUser.password;
-      const token = createToken({ email: loggedUser.email, nome: loggedUser.nome, role: loggedUser.role });
+      const token = createToken({ id: loggedUser.id, email: loggedUser.email, nome: loggedUser.nome, role: loggedUser.role });
       return res.status(200).json({ ...loggedUser, token });
     }
   );

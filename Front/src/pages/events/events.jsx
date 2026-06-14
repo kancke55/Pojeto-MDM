@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../../components/header/header'
 import './events.css'
 import Footer from '../../components/footer/footer'
@@ -35,12 +36,10 @@ export default function Events() {
                 const { id, name, conteudo, link } = item;
                 const imgEvento = item['img-evento'];
                 return (
-                  <a
+                  <Link
                     key={id}
                     className='item'
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    to={link}
                     aria-label={`Abrir informações do evento ${name}`}
                   >
                     <img className='img-evento' src={imgEvento} alt={name} />
@@ -48,7 +47,7 @@ export default function Events() {
                       <span className='name'>{name}</span>
                       <span className='conteudo'>{conteudo}</span>
                     </div>
-                  </a>
+                  </Link>
                 );
               })}
             </div>

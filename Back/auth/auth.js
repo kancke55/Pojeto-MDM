@@ -7,9 +7,17 @@ const JWT_CONFIG = {
   expiresIn: '60m',
 };
 
+const CONFIRMATION_CONFIG = {
+  algorithm: 'HS256',
+  expiresIn: '24h',
+};
+
 const verifyToken = (token) => jwt.verify(token, secret);
 
 const createToken = (payload) =>
   jwt.sign({ data: payload }, secret, JWT_CONFIG);
 
-module.exports = { verifyToken, createToken };
+const createConfirmationToken = (payload) =>
+  jwt.sign({ data: payload }, secret, CONFIRMATION_CONFIG);
+
+module.exports = { verifyToken, createToken, createConfirmationToken };

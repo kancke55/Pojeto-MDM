@@ -25,7 +25,7 @@ export default function Login() {
         navigate('/');
       } else { return null }
     } catch (error) {
-      showMessage(error.message);
+      window.alert(error.message);
     }
   }
 
@@ -54,6 +54,12 @@ export default function Login() {
               <div id='login-usuario'>
                 <div>
                   <Link  to='/recover' >Esqueceua a senha?</Link>
+
+                </div>
+                <div>
+                  <Link  to='/resend-confirmation' >
+                    Não recebeu email de confirmação?
+                  </Link>
 
                 </div>
                 <div>
