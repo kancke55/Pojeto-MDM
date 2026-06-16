@@ -1,44 +1,38 @@
 const { Router } = require('express');
-const connection = require('../db');
+const { query } = require('../db');
 const { loginValidation } = require('../auth/userValidation');
 const { createToken } = require('../auth/auth');
+
 const router = new Router();
+router.use(loginValidation);
 
-router.use((req, res, next) => {
-  loginValidation(req, res, next);
-});
+router.post('/', async (req, res) => {
+  const { email, password } = req.body;
 
-router.post('/', (req, res) => {
-  const user = req.body;
-  connection.query(
-    'SELECT * FROM usuarios WHERE email = ?',
-    [user.email],
-    function (err, results) {
-      if (err) {
-        console.log(`Falha de login: erro de banco para email=${user.email} -> ${err.message}`);
-        return res.status(500).json({ message: 'Erro interno ao processar login. Tente novamente.' });
-      }
-      if (!results || results.length === 0) {
-        console.log(`Falha de login: email não encontrado -> ${user.email}`);
-        return res.status(401).json({ message: 'Email não cadastrado.' });
-      }
-
-      const loggedUser = results[0];
-      if (loggedUser.password !== user.password) {
-        console.log(`Falha de login: senha incorreta para email=${user.email}`);
-        return res.status(401).json({ message: 'Senha incorreta.' });
-      }
-
-      if (loggedUser.email_confirmed !== 1) {
-        console.log(`Falha de login: email não confirmado para email=${user.email}`);
-        return res.status(401).json({ message: 'E-mail não confirmado. Verifique sua caixa de entrada.' });
-      }
-
-      delete loggedUser.password;
-      const token = createToken({ id: loggedUser.id, email: loggedUser.email, nome: loggedUser.nome, role: loggedUser.role });
-      return res.status(200).json({ ...loggedUser, token });
+  try {
+    const results = await query('SELECT * FROM usuarios WHERE email = ?', [email]);
+    if (!results.length) {
+      console.log(`Falha de login: email não encontrado -> ${email}`);
+      return res.status(401).json({ message: 'Email não cadastrado.' });
     }
-  );
+
+    const user = results[0];
+    if (user.password !== password) {
+      console.log(`Falha de login: senha incorreta para email=${email}`);
+      return res.status(401).json({ message: 'Senha incorreta.' });
+    }
+
+    if (user.email_confirmed !== 1) {
+      console.log(`Falha de login: email não confirmado para email=${email}`);
+      return res.status(401).json({ message: 'E-mail não confirmado. Verifique sua caixa de entrada.' });
+    }
+
+    const token = createToken({ id: user.id, email: user.email, nome: user.nome, role: user.role });
+    return res.status(200).json({ id: user.id, nome: user.nome, email: user.email, role: user.role, token });
+  } catch (err) {
+    console.error(`Falha de login: ${err.message}`);
+    return res.status(500).json({ message: 'Erro interno ao processar login. Tente novamente.' });
+  }
 });
 
 module.exports = router;

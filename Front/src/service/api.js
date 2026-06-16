@@ -1,5 +1,6 @@
-const URL = 'http://localhost:3001';
-const headers = {
+const URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+const defaultHeaders = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
@@ -14,177 +15,104 @@ async function parseResponse(response) {
   }
 }
 
+function buildHeaders(token) {
+  return token ? { ...defaultHeaders, Authorization: token } : defaultHeaders;
+}
+
+async function handleFetch(response, fallbackMessage) {
+  if (response.ok) return response.json();
+  const errorData = await parseResponse(response);
+  throw new Error(errorData?.message || errorData || fallbackMessage);
+}
+
 export async function login(email, password) {
-  try {
-    const response = await fetch(`${URL}/login`, {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers,
-    });
+  const response = await fetch(`${URL}/login`, {
+    method: 'POST',
+    headers: defaultHeaders,
+    body: JSON.stringify({ email, password }),
+  });
 
-    if (response.ok) {
-      return response.json();
-    }
-
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao fazer login.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  return handleFetch(response, 'Erro ao fazer login.');
 }
 
 export async function getAccount(token) {
-  try {
-    const response = await fetch(`${URL}/user`, {
-      headers: {
-        Authorization: `${token}`,
-      },
-    });
+  const response = await fetch(`${URL}/user`, {
+    headers: buildHeaders(token),
+  });
 
-    if (response.ok) {
-      return response.json();
-    }
-
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao buscar dados do usuário.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  return handleFetch(response, 'Erro ao buscar dados do usuário.');
 }
 
 export async function getComments(eventoId) {
-  try {
-    const response = await fetch(`${URL}/comments/${eventoId}`);
-
-    if (response.ok) {
-      return response.json();
-    }
-
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao buscar comentários.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  const response = await fetch(`${URL}/comments/${eventoId}`);
+  return handleFetch(response, 'Erro ao buscar comentários.');
 }
 
 export async function postComment(eventoId, texto, token) {
-  try {
-    const response = await fetch(`${URL}/comments`, {
-      method: 'POST',
-      headers: {
-        ...headers,
-        Authorization: `${token}`,
-      },
-      body: JSON.stringify({ eventoId, texto }),
-    });
+  const response = await fetch(`${URL}/comments`, {
+    method: 'POST',
+    headers: buildHeaders(token),
+    body: JSON.stringify({ eventoId, texto }),
+  });
 
-    if (response.ok) {
-      return response.json();
-    }
-
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao enviar comentário.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  return handleFetch(response, 'Erro ao enviar comentário.');
 }
 
 export async function createAccount(name, email, password) {
-  try {
-    const response = await fetch(`${URL}/user`, {
-      method: 'POST',
-      body: JSON.stringify({ name, email, password }),
-      headers,
-    });
+  const response = await fetch(`${URL}/user`, {
+    method: 'POST',
+    headers: defaultHeaders,
+    body: JSON.stringify({ name, email, password }),
+  });
 
-    if (response.ok) {
-      return response.json();
-    }
-
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao criar conta.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  return handleFetch(response, 'Erro ao criar conta.');
 }
 
 export async function editAccount(editedAccount, token) {
-  try {
-    const response = await fetch(`${URL}/user`, {
-      method: 'PUT',
-      body: JSON.stringify(editedAccount),
-      headers: {
-        ...headers,
-        Authorization: `${token}`,
-      },
-    });
+  const response = await fetch(`${URL}/user`, {
+    method: 'PUT',
+    headers: buildHeaders(token),
+    body: JSON.stringify(editedAccount),
+  });
 
-    if (response.ok) {
-      return response.json();
-    }
-
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao atualizar conta.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  return handleFetch(response, 'Erro ao atualizar conta.');
 }
 
-export async function deleteAccount(id, token) {
-  try {
-    const response = await fetch(`${URL}/user`, {
-      method: 'DELETE',
-      headers: {
-        ...headers,
-        Authorization: `${token}`,
-      },
-    });
+export async function deleteAccount(token) {
+  const response = await fetch(`${URL}/user`, {
+    method: 'DELETE',
+    headers: buildHeaders(token),
+  });
 
-    if (response.ok) {
-      return response.json();
-    }
-
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao deletar conta.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  return handleFetch(response, 'Erro ao deletar conta.');
 }
 
 export async function resendConfirmationEmail(email) {
-  try {
-    const response = await fetch(`${URL}/user/resend-confirmation`, {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers,
-    });
+  const response = await fetch(`${URL}/user/resend-confirmation`, {
+    method: 'POST',
+    headers: defaultHeaders,
+    body: JSON.stringify({ email }),
+  });
 
-    if (response.ok) {
-      return response.json();
-    }
-
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao reenviar código de confirmação.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  return handleFetch(response, 'Erro ao reenviar código de confirmação.');
 }
 
-export async function createDonation(amount, email) {
-  try {
-    const response = await fetch(`${URL}/donate`, {
-      method: 'POST',
-      body: JSON.stringify({ amount, email }),
-      headers,
-    });
+export async function requestPasswordReset(email) {
+  const response = await fetch(`${URL}/user/reset-password-request`, {
+    method: 'POST',
+    headers: defaultHeaders,
+    body: JSON.stringify({ email }),
+  });
 
-    if (response.ok) {
-      return response.json();
-    }
+  return handleFetch(response, 'Erro ao solicitar recuperação de senha.');
+}
 
-    const errorData = await parseResponse(response);
-    throw new Error(errorData?.message || errorData || 'Erro ao criar doação.');
-  } catch (error) {
-    throw new Error(error.message);
-  }
+export async function resetPassword(token, newPassword, confirmPassword) {
+  const response = await fetch(`${URL}/user/reset-password`, {
+    method: 'POST',
+    headers: defaultHeaders,
+    body: JSON.stringify({ token, newPassword, confirmPassword }),
+  });
+
+  return handleFetch(response, 'Erro ao redefinir senha.');
 }

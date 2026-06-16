@@ -1,8 +1,4 @@
 
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import Header from './components/header/header';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/home/home';
@@ -11,6 +7,7 @@ import Info from './pages/info/info';
 import Register from './pages/register/register';
 import Login from './pages/login/login';
 import Recover from './pages/recoverpassword/recover';
+import ResetPassword from './pages/recoverpassword/resetPassword';
 import Profile from './pages/profile/profile';
 import EditProfile from './pages/profile/editProfile';
 import ChangePassword from './pages/profile/changePassword';
@@ -30,6 +27,7 @@ function App() {
       <Route exact path='/register' element = {<Register/>}/>
       <Route exact path='/login' element = {<Login/>}/>
       <Route exact path='/recover' element = {<Recover/>}/>
+      <Route exact path='/reset-password' element = {<ResetPassword/>}/>
       <Route exact path='/resend-confirmation' element = {<ResendConfirmation/>}/>
       <Route exact path='/profile' element = {<Profile/>}/>
       <Route exact path='/profile/edit' element = {<EditProfile/>}/>

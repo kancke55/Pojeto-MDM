@@ -1,26 +1,23 @@
 const { Router } = require('express');
-const connection = require('../db');
-const { verifyToken, createConfirmationToken } = require('../auth/auth');
-const { sendConfirmationEmail } = require('../services/emailService');
-
-const {
-  nameValidation,
-  loginValidation,
-} = require('../auth/userValidation');
+const { query } = require('../db');
+const { verifyToken, createConfirmationToken, createResetToken } = require('../auth/auth');
+const { sendConfirmationEmail, sendPasswordResetEmail } = require('../services/emailService');
+const { nameValidation, loginValidation } = require('../auth/userValidation');
 
 const router = new Router();
 
-const checkEmailUnique = (req, res, next) => {
+const isValidEmail = (email) => /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
+
+const isValidPassword = (password) =>
+  typeof password === 'string' && password.length >= 6 && password.length <= 20;
+
+const checkEmailUnique = async (req, res, next) => {
   const { email } = req.body;
   if (!email) return next();
 
-  connection.query('SELECT * FROM usuarios WHERE email = ?', [email], function (err, results) {
-    if (err) {
-      return res.status(500).json({ message: 'Erro interno ao validar email.' });
-    }
-    if (results.length === 0) {
-      return next();
-    }
+  try {
+    const results = await query('SELECT * FROM usuarios WHERE email = ?', [email]);
+    if (!results.length) return next();
 
     const token = req.headers.authorization;
     if (token) {
@@ -30,29 +27,30 @@ const checkEmailUnique = (req, res, next) => {
           return next();
         }
       } catch {
-        // ignore token error here; route handlers will handle invalid token
+        // invalid token is ignored here
       }
     }
 
-    return res.status(400).json({ message: 'Esse email j√° foi utilizado' });
-  });
+    return res.status(400).json({ message: 'Esse email j· foi utilizado.' });
+  } catch (error) {
+    console.error('Erro ao validar email ˙nico:', error.message);
+    return res.status(500).json({ message: 'Erro interno ao validar email.' });
+  }
 };
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const token = req.headers.authorization;
     const { data } = verifyToken(token);
-    connection.query('SELECT id, nome, email, role FROM usuarios WHERE email = ?', [data.email], function (err, results) {
-      if (err) {
-        return res.status(400).json({ message: 'Erro ao buscar usu√°rio.' });
-      }
-      if (results.length === 0) {
-        return res.status(404).json({ message: 'Usu√°rio n√£o encontrado.' });
-      }
-      return res.status(200).json(results[0]);
-    });
+    const results = await query('SELECT id, nome, email, role FROM usuarios WHERE email = ?', [data.email]);
+
+    if (!results.length) {
+      return res.status(404).json({ message: 'Usu·rio n„o encontrado.' });
+    }
+
+    return res.status(200).json(results[0]);
   } catch (error) {
-    return res.status(401).json({ message: 'Token inv√°lido ou expirado.' });
+    return res.status(401).json({ message: 'Token inv·lido ou expirado.' });
   }
 });
 
@@ -62,116 +60,92 @@ router.get('/confirm/:token', async (req, res) => {
     const { data } = verifyToken(token);
 
     if (data.action !== 'confirm_email' || !data.email) {
-      return res.status(400).json({ message: 'Token de confirma√ß√£o inv√°lido.' });
+      return res.status(400).json({ message: 'Token de confirmaÁ„o inv·lido.' });
     }
 
-    connection.query(
-      'UPDATE usuarios SET email_confirmed = 1 WHERE email = ?',
-      [data.email],
-      function (err, result) {
-        if (err) {
-          return res.status(500).json({ message: 'Erro ao confirmar e-mail.' });
-        }
+    const result = await query('UPDATE usuarios SET email_confirmed = 1 WHERE email = ?', [data.email]);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Usu·rio n„o encontrado ou j· confirmado.' });
+    }
 
-        if (result.affectedRows === 0) {
-          return res.status(404).json({ message: 'Usu√°rio n√£o encontrado ou j√° confirmado.' });
-        }
-
-        return res.status(200).json({ message: 'E-mail confirmado com sucesso. Agora voc√™ pode fazer login.' });
-      }
-    );
+    return res.status(200).json({ message: 'E-mail confirmado com sucesso. Agora vocÍ pode fazer login.' });
   } catch (error) {
-    return res.status(400).json({ message: 'Token inv√°lido ou expirado.' });
+    return res.status(400).json({ message: 'Token inv·lido ou expirado.' });
   }
 });
 
-router.post('/', loginValidation, nameValidation, checkEmailUnique, (req, res) => {
-  const user = req.body;
+router.post('/', loginValidation, nameValidation, checkEmailUnique, async (req, res) => {
+  const { name, email, password } = req.body;
 
-  connection.query(
-    'INSERT INTO usuarios (nome, email, password, role, email_confirmed) VALUES (?,?,?,?,?)',
-    [user.name, user.email, user.password, 'user', 0],
-    async function (err) {
-      if (err) {
-        return res.status(400).json({ message: 'Erro ao criar usu√°rio.' });
-      }
+  try {
+    await query('INSERT INTO usuarios (nome, email, password, role, email_confirmed) VALUES (?,?,?,?,?)', [name, email, password, 'user', 0]);
 
-      const confirmationToken = createConfirmationToken({ email: user.email, action: 'confirm_email' });
-      sendConfirmationEmail(user.email, confirmationToken)
-        .then(() => {
-          return res.status(201).json({ message: 'Usu√°rio criado. Verifique seu e-mail para confirmar a conta.' });
-        })
-        .catch((sendError) => {
-          console.error('Erro ao enviar e-mail de confirma√ß√£o:', sendError.message || sendError);
-          return res.status(201).json({
-            message:
-              'Usu√°rio criado com sucesso, mas n√£o foi poss√≠vel enviar o e-mail de confirma√ß√£o. Tente novamente mais tarde ou verifique suas configura√ß√µes de SMTP.',
-          });
-        });
+    const confirmationToken = createConfirmationToken({ email, action: 'confirm_email' });
+
+    try {
+      await sendConfirmationEmail(email, confirmationToken);
+      return res.status(201).json({ message: 'Usu·rio criado. Verifique seu e-mail para confirmar a conta.' });
+    } catch (sendError) {
+      console.error('Erro ao enviar e-mail de confirmaÁ„o:', sendError.message || sendError);
+      return res.status(201).json({
+        message:
+          'Usu·rio criado com sucesso, mas n„o foi possÌvel enviar o e-mail de confirmaÁ„o. Tente novamente mais tarde ou verifique suas configuraÁıes de SMTP.',
+      });
     }
-  );
+  } catch (error) {
+    console.error('Erro ao criar usu·rio:', error.message);
+    return res.status(400).json({ message: 'Erro ao criar usu·rio.' });
+  }
 });
 
-router.put('/', checkEmailUnique, (req, res) => {
+router.put('/', checkEmailUnique, async (req, res) => {
   try {
     const token = req.headers.authorization;
     const { data } = verifyToken(token);
-    const user = req.body;
-
-    if (!user.name && !user.email && !user.password) {
-      return res.status(400).json({ message: 'Nenhum campo para atualizar foi enviado.' });
-    }
+    const { name, email, password } = req.body;
 
     const updates = [];
     const params = [];
 
-    if (user.name) {
+    if (name) {
       updates.push('nome = ?');
-      params.push(user.name);
+      params.push(name);
     }
-    if (user.email) {
+    if (email) {
       updates.push('email = ?');
-      params.push(user.email);
+      params.push(email);
       updates.push('email_confirmed = 0');
     }
-    if (user.password) {
+    if (password) {
       updates.push('password = ?');
-      params.push(user.password);
+      params.push(password);
+    }
+
+    if (!updates.length) {
+      return res.status(400).json({ message: 'Nenhum campo para atualizar foi enviado.' });
     }
 
     params.push(data.email);
-    const query = `UPDATE usuarios SET ${updates.join(', ')} WHERE email = ?`;
+    const queryString = `UPDATE usuarios SET ${updates.join(', ')} WHERE email = ?`;
+    await query(queryString, params);
 
-    connection.query(query, params, function (err) {
-      if (err) {
-        return res.status(400).json({ message: 'Erro ao atualizar usu√°rio.' });
-      }
-
-      connection.query('SELECT id, nome, email, role FROM usuarios WHERE email = ?', [user.email || data.email], function (selectErr, results) {
-        if (selectErr) {
-          return res.status(400).json({ message: 'Erro ao carregar usu√°rio atualizado.' });
-        }
-        return res.status(200).json(results[0]);
-      });
-    });
+    const emailToSelect = email || data.email;
+    const updated = await query('SELECT id, nome, email, role FROM usuarios WHERE email = ?', [emailToSelect]);
+    return res.status(200).json(updated[0]);
   } catch (error) {
-    return res.status(401).json({ message: 'Token inv√°lido ou expirado.' });
+    return res.status(401).json({ message: 'Token inv·lido ou expirado.' });
   }
 });
 
-router.delete('/', (req, res) => {
+router.delete('/', async (req, res) => {
   try {
     const token = req.headers.authorization;
     const { data } = verifyToken(token);
 
-    connection.query('DELETE FROM usuarios WHERE email = ?', [data.email], function (err) {
-      if (err) {
-        return res.status(400).json({ message: 'Erro ao deletar conta.' });
-      }
-      return res.status(200).json({ message: 'Conta deletada com sucesso' });
-    });
+    await query('DELETE FROM usuarios WHERE email = ?', [data.email]);
+    return res.status(200).json({ message: 'Conta deletada com sucesso.' });
   } catch (error) {
-    return res.status(401).json({ message: 'Token inv√°lido ou expirado.' });
+    return res.status(401).json({ message: 'Token inv·lido ou expirado.' });
   }
 });
 
@@ -180,60 +154,115 @@ router.post('/resend-confirmation', async (req, res) => {
     const { email } = req.body;
 
     if (!email) {
-      return res.status(400).json({ message: 'Email √© obrigat√≥rio.' });
+      return res.status(400).json({ message: 'Email È obrigatÛrio.' });
     }
 
-    const emailValidation = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
-    if (!emailValidation) {
-      return res.status(400).json({ message: 'Email inv√°lido.' });
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ message: 'Email inv·lido.' });
     }
 
-    connection.query('SELECT id, email, email_confirmed, last_resend_at FROM usuarios WHERE email = ?', [email], async function (err, results) {
-      if (err) {
-        return res.status(500).json({ message: 'Erro ao buscar usu√°rio.' });
-      }
+    const results = await query('SELECT id, email, email_confirmed, last_resend_at FROM usuarios WHERE email = ?', [email]);
+    if (!results.length) {
+      return res.status(404).json({ message: 'Usu·rio n„o encontrado.' });
+    }
 
-      if (results.length === 0) {
-        return res.status(404).json({ message: 'Usu√°rio n√£o encontrado.' });
-      }
+    const user = results[0];
+    if (user.email_confirmed) {
+      return res.status(400).json({ message: 'Este email j· foi confirmado.' });
+    }
 
-      const user = results[0];
+    const now = Date.now();
+    const lastResendTime = user.last_resend_at ? new Date(user.last_resend_at).getTime() : 0;
+    const timeSinceLastResend = now - lastResendTime;
+    const oneMinuteInMs = 60 * 1000;
 
-      if (user.email_confirmed) {
-        return res.status(400).json({ message: 'Este email j√° foi confirmado.' });
-      }
+    if (timeSinceLastResend < oneMinuteInMs) {
+      const remainingSeconds = Math.ceil((oneMinuteInMs - timeSinceLastResend) / 1000);
+      return res.status(429).json({
+        message: `Aguarde ${remainingSeconds} segundos antes de solicitar um novo cÛdigo.`,
+        remainingSeconds,
+      });
+    }
 
-      const now = Date.now();
-      const lastResendTime = user.last_resend_at ? new Date(user.last_resend_at).getTime() : 0;
-      const timeSinceLastResend = now - lastResendTime;
-      const oneMinuteInMs = 60 * 1000;
+    const confirmationToken = createConfirmationToken({ email: user.email, action: 'confirm_email' });
+    await sendConfirmationEmail(user.email, confirmationToken);
+    await query('UPDATE usuarios SET last_resend_at = NOW() WHERE id = ?', [user.id]);
 
-      if (timeSinceLastResend < oneMinuteInMs) {
-        const remainingSeconds = Math.ceil((oneMinuteInMs - timeSinceLastResend) / 1000);
-        return res.status(429).json({
-          message: `Aguarde ${remainingSeconds} segundos antes de solicitar um novo c√≥digo.`,
-          remainingSeconds,
-        });
-      }
-
-      try {
-        const confirmationToken = createConfirmationToken({ email: user.email, action: 'confirm_email' });
-        await sendConfirmationEmail(user.email, confirmationToken);
-
-        connection.query('UPDATE usuarios SET last_resend_at = NOW() WHERE id = ?', [user.id], (updateErr) => {
-          if (updateErr) {
-            console.error('Erro ao atualizar last_resend_at:', updateErr);
-          }
-        });
-
-        return res.status(200).json({ message: 'C√≥digo de confirma√ß√£o reenviado com sucesso. Verifique seu email.' });
-      } catch (sendError) {
-        console.error('Erro ao enviar e-mail de confirma√ß√£o:', sendError.message || sendError);
-        return res.status(500).json({ message: 'Erro ao enviar e-mail de confirma√ß√£o. Tente novamente mais tarde.' });
-      }
-    });
+    return res.status(200).json({ message: 'CÛdigo de confirmaÁ„o reenviado com sucesso. Verifique seu email.' });
   } catch (error) {
+    console.error('Erro ao reenviar confirmaÁ„o:', error.message);
     return res.status(500).json({ message: 'Erro interno do servidor.' });
+  }
+});
+
+router.post('/reset-password-request', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ message: 'Email inv·lido.' });
+    }
+
+    const results = await query('SELECT id, email, email_confirmed FROM usuarios WHERE email = ?', [email]);
+    if (!results.length) {
+      return res.status(200).json({ message: 'Se existir uma conta com este email, vocÍ receber· as instruÁıes.' });
+    }
+
+    if (!results[0].email_confirmed) {
+      return res.status(200).json({ message: 'Este email ainda n„o foi confirmado. Confirme sua conta antes de recuperar a senha.' });
+    }
+
+    const user = results[0];
+    const resetToken = createResetToken({ email: user.email, action: 'reset_password' });
+
+    try {
+      await sendPasswordResetEmail(user.email, resetToken);
+    } catch (sendError) {
+      console.error('Erro ao enviar e-mail de recuperaÁ„o:', {
+        message: sendError.message || sendError,
+        responseCode: sendError.responseCode,
+        rejected: sendError.rejected,
+      });
+      return res.status(500).json({ message: 'Erro ao enviar e-mail de recuperaÁ„o. Tente novamente mais tarde.' });
+    }
+
+    return res.status(200).json({ message: 'Se existir uma conta com este email, vocÍ receber· as instruÁıes.' });
+  } catch (error) {
+    console.error('Erro ao solicitar recuperaÁ„o de senha:', error.message);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
+  }
+});
+
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { token, newPassword, confirmPassword } = req.body;
+
+    if (!token) {
+      return res.status(400).json({ message: 'Token de recuperaÁ„o È obrigatÛrio.' });
+    }
+
+    if (!newPassword || newPassword !== confirmPassword) {
+      return res.status(400).json({ message: 'As senhas devem ser iguais.' });
+    }
+
+    if (!isValidPassword(newPassword)) {
+      return res.status(400).json({ message: 'Senha deve ter entre 6 e 20 caracteres.' });
+    }
+
+    const { data } = verifyToken(token);
+    if (data.action !== 'reset_password' || !data.email) {
+      return res.status(400).json({ message: 'Token de recuperaÁ„o inv·lido.' });
+    }
+
+    const result = await query('UPDATE usuarios SET password = ? WHERE email = ? AND email_confirmed = 1', [newPassword, data.email]);
+    if (result.affectedRows === 0) {
+      return res.status(400).json({ message: 'Token inv·lido, expirado ou usu·rio n„o confirmado.' });
+    }
+
+    return res.status(200).json({ message: 'Senha alterada com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao redefinir senha:', error.message);
+    return res.status(400).json({ message: 'Token de recuperaÁ„o inv·lido ou expirado.' });
   }
 });
 

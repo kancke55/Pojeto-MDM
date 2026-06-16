@@ -12,6 +12,11 @@ const CONFIRMATION_CONFIG = {
   expiresIn: '24h',
 };
 
+const RESET_PASSWORD_CONFIG = {
+  algorithm: 'HS256',
+  expiresIn: '1h',
+};
+
 const verifyToken = (token) => jwt.verify(token, secret);
 
 const createToken = (payload) =>
@@ -20,4 +25,7 @@ const createToken = (payload) =>
 const createConfirmationToken = (payload) =>
   jwt.sign({ data: payload }, secret, CONFIRMATION_CONFIG);
 
-module.exports = { verifyToken, createToken, createConfirmationToken };
+const createResetToken = (payload) =>
+  jwt.sign({ data: payload }, secret, RESET_PASSWORD_CONFIG);
+
+module.exports = { verifyToken, createToken, createConfirmationToken, createResetToken };

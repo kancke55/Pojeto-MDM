@@ -114,42 +114,34 @@
   font-size: 1rem;
 }
 
-.donate-amounts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin: 28px 0;
-}
-
-.amount-button {
-  background: #fff;
-  border: 1px solid rgba(15, 59, 86, 0.15);
-  color: #0f3b56;
-  border-radius: 18px;
-  padding: 16px 24px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
-}
-
-.amount-button:hover,
-.amount-button.active {
-  background: #e3f7f1;
-  border-color: #0f8c70;
-  transform: translateY(-2px);
-}
-
 .donate-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, #0f7c63, #169d75);
   color: #fff;
   border: none;
   border-radius: 999px;
-  padding: 18px 38px;
+  padding: 18px 42px;
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   box-shadow: 0 16px 30px rgba(13, 75, 59, 0.24);
+  margin-top: 28px;
+}
+
+.donate-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 32px rgba(13, 75, 59, 0.3);
+  background: linear-gradient(135deg, #0d6f57, #148c69);
+}
+
+.donate-note {
+  margin-top: 20px;
+  color: #2d4a55;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
 .donate-action:hover {

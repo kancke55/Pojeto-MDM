@@ -1,34 +1,17 @@
-import React, { useContext, useState } from 'react'
-import './donate.css'
-import Header from '../../components/header/header'
-import Footer from '../../components/footer/footer'
-import { createDonation } from '../../service/api'
-import { Context } from '../../contextt/MyContext'
+import React from 'react';
+import './donate.css';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 
 export default function Donate() {
-  const { account } = useContext(Context)
-  const [selectedAmount, setSelectedAmount] = useState(50);
-  const amounts = [30, 50, 100, 150];
-
-  const handleDonate = () => {
-    const email = account?.email || window.prompt('Digite seu email para receber recibo e confirmar a doação:');
-    if (!email) return window.alert('Email obrigatório para processar o pagamento.');
-
-    // amount in cents
-    const amountInCents = selectedAmount * 100;
-    createDonation(amountInCents, email)
-      .then((res) => {
-        if (res.url) {
-          // redirect to Stripe Checkout
-          window.location.href = res.url;
-        } else {
-          window.alert('Erro ao iniciar pagamento.');
-        }
-      })
-      .catch((err) => {
-        window.alert(err.message || 'Erro ao processar doação.');
-      });
-  }
+  const handleCopyPix = async () => {
+    try {
+      await navigator.clipboard.writeText('082.86687604');
+      window.alert('Chave PIX copiada para a área de transferência.');
+    } catch {
+      window.alert('Não foi possível copiar a chave PIX. Copie manualmente.');
+    }
+  };
 
   return (
     <div className="donate-page">
@@ -58,26 +41,15 @@ export default function Donate() {
 
         <section className="donate-card">
           <div className="donate-card-header">
-            <h2>Escolha um valor</h2>
-            <p>Selecione um valor rápido e clique em Doar. O PIX está logo abaixo.</p>
+            <h2>Doação PIX</h2>
+            <p>Use a chave PIX abaixo para fazer sua doação. Toque no botão para copiar.</p>
           </div>
 
-          <div className="donate-amounts">
-            {amounts.map((amount) => (
-              <button
-                key={amount}
-                type="button"
-                className={selectedAmount === amount ? 'amount-button active' : 'amount-button'}
-                onClick={() => setSelectedAmount(amount)}
-              >
-                R$ {amount}
-              </button>
-            ))}
-          </div>
-
-          <button className="donate-action" type="button" onClick={handleDonate}>
-            Doar R$ {selectedAmount}
+          <button className="donate-action" type="button" onClick={handleCopyPix}>
+            Copiar chave PIX
           </button>
+
+          <p className="donate-note">Para doar, use a chave PIX abaixo ou entre em contato para combinar outro valor.</p>
         </section>
 
         <section className="donate-pix-card">
@@ -95,5 +67,6 @@ export default function Donate() {
 
       <Footer />
     </div>
-  )
+  );
 }
+
