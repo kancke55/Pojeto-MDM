@@ -1,20 +1,31 @@
-const mysql = require('mysql2/promise');
+const { Pool } = require('pg');
 require('dotenv').config();
 
-const pool = process.env.DATABASE_URL
-  ? mysql.createPool(process.env.DATABASE_URL)
-  : mysql.createPool({
-      host: process.env.DB_HOST || 'localhost',
-      user: process.env.DB_USER || 'root',
-      password: process.env.DB_PASSWORD || 'Lukinha1513',
-      database: process.env.DB_DATABASE || 'Mdm',
-      waitForConnections: true,
-      connectionLimit: 10,
-      queueLimit: 0,
-    });
+const databaseUrl = process.env.DATABASE_URL;
+let connectionString = databaseUrl;
+let ssl;
+
+if (databaseUrl?.includes('sslmode=require')) {
+  const url = new URL(databaseUrl);
+  url.searchParams.delete('sslmode');
+  connectionString = url.toString();
+  ssl = { rejectUnauthorized: false };
+}
+
+const pool = new Pool({
+  connectionString,
+  ssl,
+});
+
+function convertPlaceholders(sql) {
+  let index = 1;
+  return sql.replace(/\?/g, () => `$${index++}`);
+}
 
 async function query(sql, params = []) {
-  const [rows] = await pool.execute(sql, params);
+  const result = await pool.query(convertPlaceholders(sql), params);
+  const rows = result.rows;
+  rows.affectedRows = result.rowCount;
   return rows;
 }
 

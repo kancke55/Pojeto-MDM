@@ -21,15 +21,19 @@ app.use((err, req, res, next) => {
 
 const ensureEmailConfirmedColumn = async () => {
   try {
-    const emailResults = await query("SHOW COLUMNS FROM usuarios LIKE 'email_confirmed'");
+    const emailResults = await query(
+      "SELECT column_name FROM information_schema.columns WHERE table_name = 'usuarios' AND column_name = 'email_confirmed'"
+    );
     if (!emailResults.length) {
-      await query('ALTER TABLE usuarios ADD COLUMN email_confirmed TINYINT(1) DEFAULT 0');
+      await query('ALTER TABLE usuarios ADD COLUMN email_confirmed SMALLINT DEFAULT 0');
       console.log('Coluna email_confirmed criada com sucesso.');
     }
 
-    const lastResendResults = await query("SHOW COLUMNS FROM usuarios LIKE 'last_resend_at'");
+    const lastResendResults = await query(
+      "SELECT column_name FROM information_schema.columns WHERE table_name = 'usuarios' AND column_name = 'last_resend_at'"
+    );
     if (!lastResendResults.length) {
-      await query('ALTER TABLE usuarios ADD COLUMN last_resend_at DATETIME NULL');
+      await query('ALTER TABLE usuarios ADD COLUMN last_resend_at TIMESTAMP NULL');
       console.log('Coluna last_resend_at criada com sucesso.');
     }
   } catch (err) {
@@ -43,7 +47,7 @@ const startServer = async () => {
     console.log(`Backend rodando na porta ${port}`);
     try {
       await pool.query('SELECT 1');
-      console.log('MySQL connection OK');
+      console.log('PostgreSQL connection OK');
       await ensureEmailConfirmedColumn();
 
       try {
@@ -53,7 +57,7 @@ const startServer = async () => {
         console.error('Erro ao conectar no SMTP:', smtpError.message || smtpError);
       }
     } catch (err) {
-      console.error('Erro ao conectar no MySQL:', err.message);
+      console.error('Erro ao conectar no PostgreSQL:', err.message);
     }
   });
 };

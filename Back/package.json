@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "setup-db": "node scripts/create_tables.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,7 +18,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.6.1",
-    "nodemailer": "^8.0.11"
+    "nodemailer": "^8.0.11",
+    "pg": "^8.21.0"
   }
 }
