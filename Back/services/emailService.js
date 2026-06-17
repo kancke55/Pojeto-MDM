@@ -99,7 +99,7 @@ async function sendConfirmationEmail(email, token) {
 }
 
 async function sendPasswordResetEmail(email, token) {
-  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+  const frontendUrl = process.env.FRONTEND_URL || 'https://tranquil-souffle-73e0e4.netlify.app';
   const resetUrl = `${frontendUrl}/reset-password?token=${encodeURIComponent(token)}`;
 
   return sendMail(buildMailOptions({
