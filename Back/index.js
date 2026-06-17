@@ -10,6 +10,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'API online' });
+});
+
+app.get('/health', async (req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    res.status(200).json({
+      status: 'ok',
+      database: 'connected',
+      hasDatabaseUrl: Boolean(process.env.DATABASE_URL),
+    });
+  } catch (err) {
+    console.error('Health check database error:', err);
+    res.status(500).json({
+      status: 'error',
+      database: 'disconnected',
+      hasDatabaseUrl: Boolean(process.env.DATABASE_URL),
+      error: err.message || err.code || 'Unknown database error',
+    });
+  }
+});
+
 app.use('/login', loginRoutes);
 app.use('/user', userRoutes);
 app.use('/comments', commentRoutes);
@@ -62,4 +85,10 @@ const startServer = async () => {
   });
 };
 
-startServer();
+if (process.env.VERCEL) {
+  ensureEmailConfirmedColumn();
+} else {
+  startServer();
+}
+
+module.exports = app;
