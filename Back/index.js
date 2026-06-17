@@ -7,7 +7,26 @@ const { loginRoutes, userRoutes, commentRoutes } = require('./routes');
 const { verifySmtpConnection } = require('./services/emailService');
 
 const app = express();
-app.use(cors());
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://tranquil-souffle-73e0e4.netlify.app',
+  'http://localhost:5173',
+].filter(Boolean);
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(null, false);
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 app.get('/', (req, res) => {

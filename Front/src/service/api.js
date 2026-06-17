@@ -1,4 +1,12 @@
-const URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
+const defaultApiUrl = import.meta.env.DEV
+  ? 'http://localhost:3001'
+  : '';
+
+const URL = (import.meta.env.VITE_API_URL || defaultApiUrl).replace(/\/+$/, '');
+
+if (!URL) {
+  console.error('VITE_API_URL não foi configurada para o frontend.');
+}
 
 const defaultHeaders = {
   Accept: 'application/json',
