@@ -82,7 +82,7 @@ async function verifySmtpConnection() {
 }
 
 async function sendConfirmationEmail(email, token) {
-  const backendUrl = process.env.BACKEND_URL || 'http://localhost:3001';
+  const backendUrl = process.env.BACKEND_URL || 'https://back-1-c0ytilgnk-mdm2.vercel.app';
   const confirmUrl = `${backendUrl}/user/confirm/${encodeURIComponent(token)}`;
 
   return sendMail(buildMailOptions({
